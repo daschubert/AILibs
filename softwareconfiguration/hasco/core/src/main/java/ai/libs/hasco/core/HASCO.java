@@ -30,6 +30,7 @@ import ai.libs.hasco.core.reduction.planning2search.IHASCOPlanningReduction;
 import ai.libs.hasco.core.reduction.softcomp2planning.HASCOReductionSolutionEvaluator;
 import ai.libs.jaicore.basic.algorithm.AlgorithmFinishedEvent;
 import ai.libs.jaicore.basic.algorithm.AlgorithmInitializedEvent;
+import ai.libs.jaicore.components.api.IComponentInstance;
 import ai.libs.jaicore.components.model.ComponentInstance;
 import ai.libs.jaicore.components.model.ComponentUtil;
 import ai.libs.jaicore.components.model.CompositionProblemUtil;
@@ -79,7 +80,7 @@ public class HASCO<N, A, V extends Comparable<V>> extends SoftwareConfigurationA
 	private boolean createComponentInstancesFromNodesInsteadOfPlans = false;
 
 	/* runtime variables of algorithm */
-	private final TimeRecordingObjectEvaluator<ComponentInstance, V> timeGrabbingEvaluationWrapper;
+	private final TimeRecordingObjectEvaluator<IComponentInstance, V> timeGrabbingEvaluationWrapper;
 
 	public HASCO(final RefinementConfiguredSoftwareConfigurationProblem<V> configurationProblem, final IHASCOPlanningReduction<N, A> planningGraphGeneratorDeriver,
 			final IOptimalPathInORGraphSearchFactory<IPathSearchWithPathEvaluationsInput<N, A, V>, EvaluatedSearchGraphPath<N, A, V>, N, A, V, ?> searchFactory) {
@@ -308,6 +309,11 @@ public class HASCO<N, A, V extends Comparable<V>> extends SoftwareConfigurationA
 		this.logger = LoggerFactory.getLogger(name);
 		this.logger.info("Activated logger for {} with name {}", this.getId(), name);
 		super.setLoggerName(this.loggerName + "._swConfigAlgo");
+
+		/* set logger in planning problem evaluator */
+		((HASCOReductionSolutionEvaluator<?>)this.planningProblem.getPlanEvaluator()).setLoggerName(name + ".planevaluator");
+
+		/* set logger in benchmark */
 		if (this.getInput().getCompositionEvaluator() instanceof ILoggingCustomizable) {
 			this.logger.info("Setting logger of HASCO solution evaluator {} to {}.solutionevaluator.", this.getInput().getCompositionEvaluator().getClass().getName(), name);
 			((ILoggingCustomizable) this.getInput().getCompositionEvaluator()).setLoggerName(name + ".solutionevaluator");
