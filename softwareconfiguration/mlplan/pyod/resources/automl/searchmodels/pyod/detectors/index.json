@@ -1,0 +1,5 @@
+{
+    "repository" : "base-index",
+    "include" : [ "./pca.json" ],
+    "components" : [ ]
+  }
