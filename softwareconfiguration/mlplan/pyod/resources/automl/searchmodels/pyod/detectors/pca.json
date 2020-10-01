@@ -1,0 +1,112 @@
+{
+    "repository": "pyod.models.pca.PCA",
+    "components": [
+        {
+            "name": "pyod.models.pca.PCA",
+            "providedInterface": [],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "n_components",
+                    "type": "int",
+                    "default": "1",
+                    "min": 0,
+                    "max": 1,
+                    "minInterval": 0.05,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "n_selected_components",
+                    "type": "int",
+                    "default": "none",
+                    "min": 1,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "contamination",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.005,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "copy",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "True"
+                },
+                {
+                    "name": "whiten",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "False"
+                },
+                {
+                    "name": "svd_solver",
+                    "type": "cat",
+                    "values": [
+                        "auto",
+                        "full",
+                        "arpack",
+                        "randomized"
+                    ],
+                    "default": "auto"
+                },
+                {
+                    "name": "tol",
+                    "type": "double",
+                    "default": 0.0,
+                    "min": 0.0,
+                    "max": 1,
+                    "minInterval": 0.001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "iterated_power",
+                    "type": "double",
+                    "default": 0.0,
+                    "min": 0.0,
+                    "max": 1,
+                    "minInterval": 0.001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "random_state",
+                    "type": "cat",
+                    "values": [
+                        "none"
+                    ],
+                    "default": "none"
+                },
+                {
+                    "name": "weighted",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "True"
+                },
+                {
+                    "name": "standardization",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "True"
+                }
+            ]
+        }
+    ]
+}
