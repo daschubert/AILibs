@@ -47,6 +47,10 @@ public class MLPlanScikitLearnBuilder extends AMLPlanBuilder<ScikitLearnWrapper<
 		return new MLPlanScikitLearnBuilder(EMLPlanScikitLearnProblemType.RUL);
 	}
 
+	public static MLPlanScikitLearnBuilder forAnomalyDetection() throws IOException {
+		return new MLPlanScikitLearnBuilder(EMLPlanScikitLearnProblemType.ANOMALY_DETECTION);
+	}
+
 	/**
 	 * Creates a new ML-Plan Builder for scikit-learn.
 	 *
