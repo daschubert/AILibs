@@ -35,7 +35,10 @@ public enum EMLPlanScikitLearnProblemType implements IProblemType<ScikitLearnWra
 			"BasicRegressor", ERegressionPerformanceMeasure.RMSE, ERegressionPerformanceMeasure.RMSE, new ScikitLearnRegressorFactory(), new RandomHoldoutSplitter<>(new Random(0), 0.7), null), //
 
 	RUL(EScikitLearnProblemType.RUL, "automl/searchmodels/sklearn/sklearn-rul.json", "conf/sklearn-rul.json", null, "conf/sklearn-preferenceList.txt", "MLPipeline", "BasicRegressor", ERulPerformanceMeasure.ASYMMETRIC_LOSS,
-			ERulPerformanceMeasure.ASYMMETRIC_LOSS, new ScikitLearnRULFactory(), EMLPlanScikitLearnProblemType.REGRESSION.getSearchSelectionDatasetSplitter(), null);
+			ERulPerformanceMeasure.ASYMMETRIC_LOSS, new ScikitLearnRULFactory(), EMLPlanScikitLearnProblemType.REGRESSION.getSearchSelectionDatasetSplitter(), null),
+
+	ANOMALY_DETECTION(EScikitLearnProblemType.ANOMALY_DETECTION, "automl/searchmodels/sklearn/pyod-anomalydetection.json", "conf/pyod-anomalydetection.json", null, "conf/sklearn-preferenceList.txt", "AbstractDetector", "BasicDetector", EClassificationPerformanceMeasure.F1_WITH_1_POSITIVE,
+	EClassificationPerformanceMeasure.F1_WITH_1_POSITIVE, new PyODAnomalyDetectionFactory(), new FilterBasedDatasetSplitter<>(new LabelBasedStratifiedSamplingFactory<>()), null);
 
 	private final EScikitLearnProblemType problemType;
 
