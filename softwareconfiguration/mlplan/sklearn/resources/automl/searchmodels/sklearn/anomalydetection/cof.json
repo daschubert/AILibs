@@ -1,0 +1,21 @@
+{
+    "repository": "pyod.models.cof.COF",
+    "components": [
+        {
+            "name": "pyod.models.cof.COF",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "n_neighbors",
+                    "type": "int",
+                    "default": "20",
+                    "min": 1,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}
