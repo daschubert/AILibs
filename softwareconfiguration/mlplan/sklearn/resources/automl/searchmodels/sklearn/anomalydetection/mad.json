@@ -1,0 +1,21 @@
+{
+    "repository": "pyod.models.mad.MAD",
+    "components": [
+        {
+            "name": "pyod.models.mad.MAD",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "threshold",
+                    "type": "double",
+                    "default": "3.5",
+                    "min": 0.5,
+                    "max": 10,
+                    "minInterval": 0.5,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}
