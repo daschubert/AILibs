@@ -1,0 +1,21 @@
+{
+    "repository": "pyod.models.abod.ABOD",
+    "components": [
+        {
+            "name": "pyod.models.abod.ABOD",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "n_neighbors",
+                    "type": "int",
+                    "default": "5",
+                    "min": 1,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}
