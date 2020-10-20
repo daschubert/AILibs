@@ -1,0 +1,30 @@
+{
+    "repository": "pyod.models.loda.LODA",
+    "components": [
+        {
+            "name": "pyod.models.loda.LODA",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "n_bins",
+                    "type": "int",
+                    "default": "10",
+                    "min": 2,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "n_random_cuts",
+                    "type": "int",
+                    "default": "100",
+                    "min": 10,
+                    "max": 500,
+                    "minInterval": 10,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}
