@@ -1,0 +1,30 @@
+{
+    "repository": "pyod.models.mcd.MCD",
+    "components": [
+        {
+            "name": "pyod.models.mcd.MCD",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "support_fraction",
+                    "type": "double",
+                    "default": 0.5,
+                    "min": 0.01,
+                    "max": 0.99,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "assume_centered",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "False"
+                }
+            ]
+        }
+    ]
+}
