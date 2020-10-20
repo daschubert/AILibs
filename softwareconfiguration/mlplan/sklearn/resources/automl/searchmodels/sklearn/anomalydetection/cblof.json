@@ -1,0 +1,48 @@
+{
+    "repository": "pyod.models.cblof.CBLOF",
+    "components": [
+        {
+            "name": "pyod.models.cblof.CBLOF",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "n_clusters",
+                    "type": "int",
+                    "default": "8",
+                    "min": 2,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "alpha",
+                    "type": "double",
+                    "default": "0.9",
+                    "min": 0.5,
+                    "max": 1,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "beta",
+                    "type": "int",
+                    "default": "5",
+                    "min": 1,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "use_weights",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "False"
+                }
+            ]
+        }
+    ]
+}
