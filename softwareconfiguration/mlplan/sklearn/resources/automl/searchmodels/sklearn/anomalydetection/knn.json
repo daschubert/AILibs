@@ -1,0 +1,70 @@
+{
+    "repository": "pyod.models.knn.KNN",
+    "components": [
+        {
+            "name": "pyod.models.knn.KNN",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "n_neighbors",
+                    "type": "int",
+                    "default": "5",
+                    "min": 1,
+                    "max": 50,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "radius",
+                    "type": "double",
+                    "default": "1.0",
+                    "min": 1,
+                    "max": 10,
+                    "minInterval": 0.2,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "method",
+                    "type": "cat",
+                    "values": [
+                        "largest",
+                        "mean",
+                        "median"
+                    ],
+                    "default": "largest"
+                },
+                {
+                    "name": "metric",
+                    "type": "cat",
+                    "values": [
+                        "cityblock",
+                        "cosine",
+                        "euclidean",
+                        "l1",
+                        "l2",
+                        "manhattan",
+                        "braycurtis",
+                        "canberra",
+                        "chebyshev",
+                        "correlation",
+                        "dice",
+                        "hamming",
+                        "jaccard",
+                        "kulsinski",
+                        "mahalanobis",
+                        "matching",
+                        "rogerstanimoto",
+                        "russellrao",
+                        "seuclidean",
+                        "sokalmichener",
+                        "sokalsneath",
+                        "sqeuclidean",
+                        "yule"
+                    ],
+                    "default": "euclidean"
+                }
+            ]
+        }
+    ]
+}
