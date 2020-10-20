@@ -3,13 +3,13 @@
     "components": [
         {
             "name": "pyod.models.pca.PCA",
-            "providedInterface": [],
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
             "parameter": [
                 {
                     "name": "n_components",
                     "type": "int",
-                    "default": "1",
+                    "default": 1,
                     "min": 0,
                     "max": 1,
                     "minInterval": 0.05,

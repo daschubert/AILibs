@@ -9,7 +9,7 @@
                 {
                     "name": "n_neighbors",
                     "type": "int",
-                    "default": "5",
+                    "default": 5,
                     "min": 1,
                     "max": 50,
                     "minInterval": 1,
@@ -18,7 +18,7 @@
                 {
                     "name": "radius",
                     "type": "double",
-                    "default": "1.0",
+                    "default": 1.0,
                     "min": 1,
                     "max": 10,
                     "minInterval": 0.2,

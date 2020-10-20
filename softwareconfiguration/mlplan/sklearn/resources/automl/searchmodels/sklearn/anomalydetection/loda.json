@@ -9,7 +9,7 @@
                 {
                     "name": "n_bins",
                     "type": "int",
-                    "default": "10",
+                    "default": 10,
                     "min": 2,
                     "max": 100,
                     "minInterval": 1,
@@ -18,7 +18,7 @@
                 {
                     "name": "n_random_cuts",
                     "type": "int",
-                    "default": "100",
+                    "default": 100,
                     "min": 10,
                     "max": 500,
                     "minInterval": 10,

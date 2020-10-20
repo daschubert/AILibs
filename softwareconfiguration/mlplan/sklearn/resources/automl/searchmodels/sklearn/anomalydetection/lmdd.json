@@ -9,7 +9,7 @@
                 {
                     "name": "n_iter",
                     "type": "int",
-                    "default": "50",
+                    "default": 50,
                     "min": 1,
                     "max": 1000,
                     "minInterval": 1,
