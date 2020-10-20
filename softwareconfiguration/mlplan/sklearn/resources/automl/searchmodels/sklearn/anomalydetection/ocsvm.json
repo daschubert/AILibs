@@ -1,0 +1,68 @@
+{
+    "repository": "pyod.models.ocsvm.OCSVM",
+    "components": [
+        {
+            "name": "pyod.models.ocsvm.OCSVM",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "nu",
+                    "type": "double",
+                    "default": 0.5,
+                    "min": 0.01,
+                    "max": 1,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "degree",
+                    "type": "int",
+                    "default": 3,
+                    "min": 2,
+                    "max": 20,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "gamma",
+                    "type": "double",
+                    "default": "auto",
+                    "min": 0.001,
+                    "max": 1,
+                    "minInterval": 0.001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "coef0",
+                    "type": "double",
+                    "default": 0,
+                    "min": 1e5,
+                    "max": -1e5,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "kernel",
+                    "type": "cat",
+                    "values": [
+                        "rbf",
+                        "linear",
+                        "poly",
+                        "sigmoid"
+                    ],
+                    "default": "rbf"
+                },
+                {
+                    "name": "shrinking",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "True"
+                }
+            ]
+        }
+    ]
+}
