@@ -1,0 +1,31 @@
+{
+    "repository": "pyod.models.lmdd.LMDD",
+    "components": [
+        {
+            "name": "pyod.models.lmdd.LMDD",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "n_iter",
+                    "type": "int",
+                    "default": "50",
+                    "min": 1,
+                    "max": 1000,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "dis_measure",
+                    "type": "cat",
+                    "values": [
+                        "aad",
+                        "var",
+                        "iqr"
+                    ],
+                    "default": "aad"
+                }
+            ]
+        }
+    ]
+}
