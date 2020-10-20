@@ -1,0 +1,46 @@
+{
+    "repository": "pyod.models.sos.SOS",
+    "components": [
+        {
+            "name": "pyod.models.sos.SOS",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "perplexity",
+                    "type": "double",
+                    "default": 4.5,
+                    "min": 1,
+                    "max": 50,
+                    "minInterval": 0.1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "metric",
+                    "type": "cat",
+                    "values": [
+                        "euclidean",
+                        "braycurtis",
+                        "canberra",
+                        "chebyshev",
+                        "correlation",
+                        "dice",
+                        "hamming",
+                        "jaccard",
+                        "kulsinski",
+                        "mahalanobis",
+                        "matching",
+                        "rogerstanimoto",
+                        "russellrao",
+                        "seuclidean",
+                        "sokalmichener",
+                        "sokalsneath",
+                        "sqeuclidean",
+                        "yule"
+                    ],
+                    "default": ""
+                }
+            ]
+        }
+    ]
+}
