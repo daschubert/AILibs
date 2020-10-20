@@ -1,0 +1,50 @@
+{
+    "repository": "pyod.models.lof.LOF",
+    "components": [
+        {
+            "name": "pyod.models.lof.LOF",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameter": [
+                {
+                    "name": "n_neighbors",
+                    "type": "int",
+                    "default": "20",
+                    "min": 2,
+                    "max": 50,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "metric",
+                    "type": "cat",
+                    "values": [
+                        "cityblock",
+                        "cosine",
+                        "euclidean",
+                        "l1",
+                        "l2",
+                        "manhattan",
+                        "braycurtis",
+                        "canberra",
+                        "chebyshev",
+                        "correlation",
+                        "dice",
+                        "hamming",
+                        "jaccard",
+                        "kulsinski",
+                        "mahalanobis",
+                        "matching",
+                        "rogerstanimoto",
+                        "russellrao",
+                        "seuclidean",
+                        "sokalmichener",
+                        "sokalsneath",
+                        "sqeuclidean",
+                        "yule"
+                    ]
+                }
+            ]
+        }
+    ]
+}
