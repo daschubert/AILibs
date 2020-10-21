@@ -1,5 +1,10 @@
 package ai.libs.mlplan.sklearn;
 
-public class PyODAnomalyDetectionFactory {
-    
+import ai.libs.jaicore.ml.core.EScikitLearnProblemType;
+
+public class PyODAnomalyDetectionFactory extends ATwoStepPipelineScikitLearnFactory {
+
+    public PyODAnomalyDetectionFactory() {
+		super(EScikitLearnProblemType.ANOMALY_DETECTION, "anomaly_detector");
+	}
 }
