@@ -1,6 +1,8 @@
 {
 	"repository": "ML-Plan with PyOD Backend for Anomaly Detection",
 	"include": [
-		"./anomalydetection/index.json"
+		"./anomalydetection/base/index.json",
+		"./preprocessing/index.json",
+		"./anomalydetection/ext/twosteppipeline.json"
 	]
 }
