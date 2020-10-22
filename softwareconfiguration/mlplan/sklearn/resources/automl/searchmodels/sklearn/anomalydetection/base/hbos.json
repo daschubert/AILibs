@@ -1,15 +1,15 @@
 {
-    "repository": "pyod.models.cblof.CBLOF",
+    "repository": "pyod.models.hbos.HBOS",
     "components": [
         {
-            "name": "pyod.models.cblof.CBLOF",
+            "name": "pyod.models.hbos.HBOS",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
             "parameter": [
                 {
-                    "name": "n_clusters",
+                    "name": "n_bins",
                     "type": "int",
-                    "default": "8",
+                    "default": 10,
                     "min": 2,
                     "max": 100,
                     "minInterval": 1,
@@ -18,29 +18,20 @@
                 {
                     "name": "alpha",
                     "type": "double",
-                    "default": "0.9",
-                    "min": 0.5,
+                    "default": 0.1,
+                    "min": 0,
                     "max": 1,
                     "minInterval": 0.01,
                     "refineSplits": 2
                 },
                 {
-                    "name": "beta",
-                    "type": "int",
-                    "default": "5",
-                    "min": 1,
-                    "max": 100,
-                    "minInterval": 1,
+                    "name": "tol",
+                    "type": "double",
+                    "default": 0.5,
+                    "min": 0,
+                    "max": 1,
+                    "minInterval": 0.01,
                     "refineSplits": 2
-                },
-                {
-                    "name": "use_weights",
-                    "type": "cat",
-                    "values": [
-                        "True",
-                        "False"
-                    ],
-                    "default": "False"
                 }
             ]
         }
