@@ -5,7 +5,7 @@
             "name": "pyod.models.abod.ABOD",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "n_neighbors",
                     "type": "int",

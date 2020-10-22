@@ -5,7 +5,7 @@
             "name": "pyod.models.copod.COPOD",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 
             ]
         }

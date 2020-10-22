@@ -5,7 +5,7 @@
             "name": "pyod.models.cblof.CBLOF",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "n_clusters",
                     "type": "int",

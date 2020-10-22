@@ -5,7 +5,7 @@
             "name": "pyod.models.ocsvm.OCSVM",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "nu",
                     "type": "double",

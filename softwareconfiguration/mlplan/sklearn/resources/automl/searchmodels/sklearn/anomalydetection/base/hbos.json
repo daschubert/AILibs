@@ -5,7 +5,7 @@
             "name": "pyod.models.hbos.HBOS",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "n_bins",
                     "type": "int",

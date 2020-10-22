@@ -5,7 +5,7 @@
             "name": "pyod.models.iforest.IForest",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "n_estimators",
                     "type": "int",

@@ -5,7 +5,7 @@
             "name": "pyod.models.mcd.MCD",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "support_fraction",
                     "type": "double",

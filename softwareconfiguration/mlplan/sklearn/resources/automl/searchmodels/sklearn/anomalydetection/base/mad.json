@@ -5,7 +5,7 @@
             "name": "pyod.models.mad.MAD",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "threshold",
                     "type": "double",

@@ -5,7 +5,7 @@
             "name": "pyod.models.lmdd.LMDD",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "n_iter",
                     "type": "int",

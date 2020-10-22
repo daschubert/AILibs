@@ -5,7 +5,7 @@
             "name": "pyod.models.pca.PCA",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "n_components",
                     "type": "int",

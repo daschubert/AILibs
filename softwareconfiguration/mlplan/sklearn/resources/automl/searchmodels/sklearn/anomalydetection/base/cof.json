@@ -5,7 +5,7 @@
             "name": "pyod.models.cof.COF",
             "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
             "requiredInterface": [],
-            "parameter": [
+            "parameters": [
                 {
                     "name": "n_neighbors",
                     "type": "int",
