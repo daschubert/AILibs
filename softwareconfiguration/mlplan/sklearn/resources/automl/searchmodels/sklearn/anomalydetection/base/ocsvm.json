@@ -27,7 +27,7 @@
                 {
                     "name": "gamma",
                     "type": "double",
-                    "default": "auto",
+                    "default": 0.1,
                     "min": 0.001,
                     "max": 1,
                     "minInterval": 0.001,
@@ -37,8 +37,8 @@
                     "name": "coef0",
                     "type": "double",
                     "default": 0,
-                    "min": 1e5,
-                    "max": -1e5,
+                    "min": -1e5,
+                    "max": 1e5,
                     "minInterval": 1,
                     "refineSplits": 2
                 },

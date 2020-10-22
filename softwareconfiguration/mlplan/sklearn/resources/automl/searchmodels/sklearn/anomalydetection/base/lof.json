@@ -42,7 +42,8 @@
                         "sokalsneath",
                         "sqeuclidean",
                         "yule"
-                    ]
+                    ],
+                    "default": "euclidean"
                 }
             ]
         }
