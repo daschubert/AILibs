@@ -38,7 +38,7 @@
                         "sqeuclidean",
                         "yule"
                     ],
-                    "default": ""
+                    "default": "euclidean"
                 }
             ]
         }
