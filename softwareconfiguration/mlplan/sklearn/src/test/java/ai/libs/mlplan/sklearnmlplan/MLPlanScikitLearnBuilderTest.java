@@ -33,6 +33,8 @@ public class MLPlanScikitLearnBuilderTest extends AbstractMLPlanBuilderTest {
 			return MLPlanScikitLearnBuilder.forRegression();
 		case RUL:
 			return MLPlanScikitLearnBuilder.forRUL();
+		case ANOMALY_DETECTION:
+			return MLPlanScikitLearnBuilder.forAnomalyDetection();
 		default:
 			throw new IllegalArgumentException("Unknown problem type " + problemType);
 		}
