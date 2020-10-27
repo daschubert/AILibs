@@ -20,7 +20,9 @@ public class ScikitLearnSearchSpaceDeserializationTest extends RepositoryDeseria
 				Arguments.of(BASE_PATH + "regression/base/index.json", 22), //
 				Arguments.of(BASE_PATH + "regression/ext/rulpipeline.json", 1), //
 				Arguments.of(BASE_PATH + "regression/ext/twosteppipeline.json", 1), //
-				Arguments.of(BASE_PATH + "timeseries/index.json", 2), //
+				Arguments.of(BASE_PATH + "timeseries/index.json", 2), // */
+				Arguments.of(BASE_PATH + "anomalydetection/base/index.json", 17), //
+				Arguments.of(BASE_PATH + "anomalydetection/ext/twosteppipeline.json", 1), //
 
 				/* Full Repositories for ML-Plan with WEKA backend */
 				Arguments.of(BASE_PATH + "sklearn-classification-ul.json", 41), //
