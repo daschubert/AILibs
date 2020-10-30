@@ -36,35 +36,57 @@ import ai.libs.mlplan.sklearn.EMLPlanScikitLearnProblemType;
 public class MLPlanScikitLearnSearchSpaceConfigurationTest extends AbstractSearchSpaceConfigurationTest {
 
 	public static Stream<EMLPlanScikitLearnProblemType> getProblemTypes() {
-		return Stream.of(EMLPlanScikitLearnProblemType.CLASSIFICATION_MULTICLASS, EMLPlanScikitLearnProblemType.CLASSIFICATION_MULTICLASS_UNLIMITED_LENGTH_PIPELINES, EMLPlanScikitLearnProblemType.RUL);
+		return Stream.of(EMLPlanScikitLearnProblemType.CLASSIFICATION_MULTICLASS,
+				EMLPlanScikitLearnProblemType.CLASSIFICATION_MULTICLASS_UNLIMITED_LENGTH_PIPELINES,
+				EMLPlanScikitLearnProblemType.RUL,
+				EMLPlanScikitLearnProblemType.ANOMALY_DETECTION);
 	}
 
 	public static final String MSG_DISABLED = "This test is disabled for WEKA, because it does not make sense";
 
 	public static final String DATASET_DEFAULT = "testrsc/car.arff";
 	public static final String DATASET_RUL = "testrsc/rul_smallExample.arff";
+	public static final String DATASET_ANOMALY = "testrsc/winequality.arff";
 
 	private AScikitLearnLearnerFactory factory;
 	private MonteCarloCrossValidationEvaluator evaluator;
 
 	@Override
-	public void prepare(final IProblemType<?> problemTypeOrig) throws DatasetDeserializationFailedException, IOException, SplitFailedException, InterruptedException {
+	public void prepare(final IProblemType<?> problemTypeOrig)
+			throws DatasetDeserializationFailedException, IOException, SplitFailedException, InterruptedException {
 		EMLPlanScikitLearnProblemType problemType = (EMLPlanScikitLearnProblemType) problemTypeOrig;
-		String dataPath = (problemType == EMLPlanScikitLearnProblemType.RUL) ? DATASET_RUL : DATASET_DEFAULT;
+		String dataPath;
+		switch (problemType) {
+		case RUL:
+			dataPath = DATASET_RUL;
+			break;
+		case ANOMALY_DETECTION:
+			dataPath = DATASET_ANOMALY;
+			break;
+
+		default:
+			dataPath = DATASET_DEFAULT;
+			break;
+		}
+
 		ILabeledDataset<ILabeledInstance> data = ArffDatasetAdapter.readDataset(new File(dataPath));
 
 		if (data.size() > 20) {// ensure that the dataset has at maximum 20 instances (for speedup)
-			data = (ILabeledDataset<ILabeledInstance>) SplitterUtil.getSimpleTrainTestSplit(data, 0, 20.0 / data.size()).get(0);
+			data = (ILabeledDataset<ILabeledInstance>) SplitterUtil.getSimpleTrainTestSplit(data, 0, 20.0 / data.size())
+					.get(0);
 		}
 
 		this.factory = problemType.getLearnerFactory();
-		this.evaluator = new MonteCarloCrossValidationEvaluatorFactory().withData(data).withNumMCIterations(1).withTrainFoldSize(0.7).withMeasure(problemType.getPerformanceMetricForSearchPhase()).withRandom(new Random(42))
-				.getLearnerEvaluator();
+		this.evaluator = new MonteCarloCrossValidationEvaluatorFactory().withData(data).withNumMCIterations(1)
+				.withTrainFoldSize(0.7).withMeasure(problemType.getPerformanceMetricForSearchPhase())
+				.withRandom(new Random(42)).getLearnerEvaluator();
 	}
 
 	@Override
-	public void execute(final IComponentInstance componentInstance) throws ComponentInstantiationFailedException, InterruptedException, AlgorithmTimeoutedException, ExecutionException {
-		ScikitLearnWrapper<IPrediction, IPredictionBatch> model = this.factory.getComponentInstantiation(componentInstance);
+	public void execute(final IComponentInstance componentInstance) throws ComponentInstantiationFailedException,
+			InterruptedException, AlgorithmTimeoutedException, ExecutionException {
+		ScikitLearnWrapper<IPrediction, IPredictionBatch> model = this.factory
+				.getComponentInstantiation(componentInstance);
 		TimedComputation.compute(new Callable<Double>() {
 			@Override
 			public Double call() throws Exception {
