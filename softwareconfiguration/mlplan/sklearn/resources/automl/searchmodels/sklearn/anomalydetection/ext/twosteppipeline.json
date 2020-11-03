@@ -10,7 +10,7 @@
 			],
 			"requiredInterface": [
 				{
-					"id": "detector",
+					"id": "anomaly_detector",
 					"name": "BasicDetector"
 				},
 				{
