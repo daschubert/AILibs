@@ -3,6 +3,7 @@ package ai.libs.mlplan.examples.multiclass.sklearn;
 import java.io.File;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.api4.java.ai.ml.classification.singlelabel.evaluation.ISingleLabelClassification;
@@ -20,6 +21,7 @@ import ai.libs.jaicore.ml.classification.loss.dataset.EClassificationPerformance
 import ai.libs.jaicore.ml.core.dataset.serialization.ArffDatasetAdapter;
 import ai.libs.jaicore.ml.core.dataset.splitter.RandomHoldoutSplitter;
 import ai.libs.jaicore.ml.core.evaluation.evaluator.SupervisedLearnerExecutor;
+import ai.libs.jaicore.ml.core.filter.SplitterUtil;
 import ai.libs.jaicore.ml.scikitwrapper.ScikitLearnWrapper;
 import ai.libs.mlplan.core.MLPlan;
 import ai.libs.mlplan.sklearn.builder.MLPlanScikitLearnBuilder;
@@ -33,10 +35,10 @@ public class MLPlanPyODExample {
 		/* load data for segment dataset and create a train-test-split */
 		long start = System.currentTimeMillis();
 		File file = new File("testrsc/winequality_outliers.arff");
-		ILabeledDataset<ILabeledInstance> dataset = ArffDatasetAdapter.readDataset(file);
+		ILabeledDataset<?> dataset = ArffDatasetAdapter.readDataset(file);
 
 		LOGGER.info("Data read. Time to create dataset object was {}ms", System.currentTimeMillis() - start);
-		List<ILabeledDataset<ILabeledInstance>> split = RandomHoldoutSplitter.createSplit(dataset, 42, .7);
+		List<ILabeledDataset<?>> split = SplitterUtil.getLabelStratifiedTrainTestSplit(dataset, new Random(42), .7);
 
 		/* initialize mlplan with a tiny search space, and let it run for 30 seconds */
 		MLPlanScikitLearnBuilder builder = MLPlanScikitLearnBuilder.forAnomalyDetection();
@@ -59,8 +61,8 @@ public class MLPlanPyODExample {
 			/* evaluate solution produced by mlplan */
 			SupervisedLearnerExecutor executor = new SupervisedLearnerExecutor();
 			ILearnerRunReport report = executor.execute(optimizedClassifier, split.get(1));
-			LOGGER.info("F1-score of the solution produced by ML-Plan: {}. Internally believed error was {}",
-					EClassificationPerformanceMeasure.F1_WITH_1_POSITIVE.loss(report.getPredictionDiffList().getCastedView(Integer.class, ISingleLabelClassification.class)), mlplan.getInternalValidationErrorOfSelectedClassifier());
+			LOGGER.info("F1-score of the solution produced by ML-Plan: {}. Internally believed F1-score was {}",
+					EClassificationPerformanceMeasure.F1_WITH_1_POSITIVE.score(report.getPredictionDiffList().getCastedView(Integer.class, ISingleLabelClassification.class)), -mlplan.getInternalValidationErrorOfSelectedClassifier());
 		} catch (NoSuchElementException e) {
 			LOGGER.error("Building the classifier failed: {}", LoggerUtil.getExceptionInfo(e));
 		}
