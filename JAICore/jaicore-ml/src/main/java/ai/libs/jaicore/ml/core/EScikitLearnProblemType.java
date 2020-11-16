@@ -2,13 +2,17 @@ package ai.libs.jaicore.ml.core;
 
 public enum EScikitLearnProblemType {
 
-	REGRESSION("--regression", "sklearn/scikit_template_classification.twig.py"), CLASSIFICATION("", "sklearn/scikit_template_classification.twig.py", "tpot"), RUL("--rul", "sklearn/scikit_template_rul.twig.py"), ANOMALY_DETECTION("--anomalydetection", "sklearn/scikit_template_classification.twig.py");
+	REGRESSION("--regression", "sklearn/scikit_template_classification.twig.py"),
+	CLASSIFICATION("", "sklearn/scikit_template_classification.twig.py", "tpot"),
+	RUL("--rul", "sklearn/scikit_template_rul.twig.py"),
+	ANOMALY_DETECTION("", "sklearn/scikit_template_anomalydetection.twig.py");
 
 	private final String[] pythonRequiredModules;
 	private final String scikitLearnCommandLineFlag;
 	private final String ressourceScikitTemplate;
 
-	private EScikitLearnProblemType(final String scikitLearnCommandLineFlag, final String ressourceScikitTemplate, final String... pythonRequiredModules) {
+	private EScikitLearnProblemType(final String scikitLearnCommandLineFlag, final String ressourceScikitTemplate,
+			final String... pythonRequiredModules) {
 		this.scikitLearnCommandLineFlag = scikitLearnCommandLineFlag;
 		this.ressourceScikitTemplate = ressourceScikitTemplate;
 		this.pythonRequiredModules = pythonRequiredModules;
@@ -29,5 +33,4 @@ public enum EScikitLearnProblemType {
 	public String getName() {
 		return this.getClass().getSimpleName() + "." + this.toString();
 	}
-
 }
