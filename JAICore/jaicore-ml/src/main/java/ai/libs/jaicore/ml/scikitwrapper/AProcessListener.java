@@ -62,6 +62,11 @@ public abstract class AProcessListener implements IProcessListener, ILoggingCust
 					if (line.contains("import imp") || line.contains("imp module")) {
 						continue;
 					}
+					if (line.contains("warning") || line.contains("Warning")) {
+						this.logger.info("Interpreted " + line.toString() + " as being a Warning and ignored it.");
+						continue;
+					}
+						
 					this.handleError(line);
 				}
 			}
