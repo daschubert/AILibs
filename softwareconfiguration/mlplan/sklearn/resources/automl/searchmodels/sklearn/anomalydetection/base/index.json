@@ -1,5 +1,31 @@
 {
     "repository" : "base-index",
-    "include" : [ "./abod.json", "./auto_encoder_torch.json", "./cblof.json", "./cof.json", "./copod.json", "./hbos.json", "./iforest.json", "./knn.json", "./lmdd.json", "./loci.json", "./loda.json", "./lof.json", "./mad.json", "./mcd.json", "./ocsvm.json", "./pca.json", "./sod.json", "./sos.json" ],
+    "include" : [
+    	"./abod.json",
+    	"./auto_encoder_torch.json",
+    	"./cblof.json",
+    	"./cof.json",
+    	"./copod.json",
+    	"./hbos.json",
+    	"./iforest.json",
+    	"./knn.json",
+    	"./lmdd.json",
+    	"./loci.json",
+    	"./loda.json",
+    	"./lof.json",
+    	"./mad.json",
+    	"./mcd.json",
+    	"./ocsvm.json",
+    	"./pca.json",
+    	"./sod.json",
+    	"./sos.json",
+    	"./auto_encoder.json",
+    	"./auto_encoder_torch.json",
+    	"./deep_svdd.json",
+    	"./mo_gaal.json",
+    	"./rod.json",
+    	"./so_gaal.json",
+    	"./vae.json"
+    	],
     "components" : [ ]
   }

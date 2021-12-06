@@ -1,0 +1,75 @@
+{
+    "repository": "pyod.models.mo_gaal.MO_GAAL",
+    "components": [
+        {
+            "name": "pyod.models.mo_gaal.MO_GAAL",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameters": [
+            	{
+                    "name": "contamination",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "k",
+                    "type": "int",
+                    "default": 10,
+                    "min": 1,
+                    "max": 20,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+					"name": "stop_epochs",
+					"type": "int",
+					"default": 20,
+					"min": 10,
+					"max": 150,
+					"minInterval": 1,
+					"refineSplits": 2
+				},
+				{
+                    "name": "lr_d",
+                    "type": "double",
+                    "default": 0.01,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "lr_g",
+                    "type": "double",
+                    "default": 0.0001,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "decay",
+                    "type": "double",
+                    "default": 0.000001,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "momentum",
+                    "type": "double",
+                    "default": 0.9,
+                    "min": 0.0,
+                    "max": 1.0,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}

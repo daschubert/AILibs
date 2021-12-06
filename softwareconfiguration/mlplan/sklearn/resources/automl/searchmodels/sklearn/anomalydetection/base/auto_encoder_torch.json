@@ -36,7 +36,7 @@
                     "type": "int",
                     "default":100,
                     "min": 10,
-                    "max": 1000,
+                    "max": 150,
                     "minInterval": 1,
                     "refineSplits": 2
                 },

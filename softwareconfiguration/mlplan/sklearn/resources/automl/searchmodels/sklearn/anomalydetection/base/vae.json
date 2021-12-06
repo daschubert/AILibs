@@ -1,0 +1,155 @@
+{
+	"repository": "pyod.models.vae.VAE",
+	"components": [
+		{
+			"name": "pyod.models.vae.VAE",
+			"providedInterface": [
+				"AbstractDetector",
+				"BasicDetector",
+				"BaseLearner"
+			],
+			"requiredInterface": [],
+			"parameters": [
+				{
+					"name": "contamination",
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 0.5,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "hidden_activation",
+					"type": "cat",
+					"values": [
+						"relu",
+						"sigmoid",
+						"softmax",
+						"softplus",
+						"softsign",
+						"tanh",
+						"selu",
+						"elu",
+						"exponential"
+					],
+					"default": "relu"
+				},
+				{
+					"name": "output_activation",
+					"type": "cat",
+					"values": [
+						"relu",
+						"sigmoid",
+						"softmax",
+						"softplus",
+						"softsign",
+						"tanh",
+						"selu",
+						"elu",
+						"exponential"
+					],
+					"default": "sigmoid"
+				},
+				{
+					"name": "loss",
+					"type": "cat",
+					"values": [
+						"mean_squared_error"
+					],
+					"default": "mean_squared_error"
+				},
+				{
+					"name": "gamma",
+					"type": "double",
+					"default": 1.0,
+					"min": 0.0,
+					"max": 1.0,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "capacity",
+					"type": "double",
+					"default": 0.0,
+					"min": 0.0,
+					"max": 1.0,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "optimizer",
+					"type": "cat",
+					"values": [
+						"adam"
+					],
+					"default": "adam"
+				},
+				{
+					"name": "epochs",
+					"type": "int",
+					"default": 100,
+					"min": 10,
+					"max": 150,
+					"minInterval": 1,
+					"refineSplits": 2
+				},
+				{
+					"name": "batch_size",
+					"type": "int",
+					"default": 32,
+					"min": 2,
+					"max": 100,
+					"minInterval": 1,
+					"refineSplits": 2
+				},
+				{
+					"name": "dropout_rate",
+					"type": "double",
+					"default": 0.2,
+					"min": 0.0,
+					"max": 1.0,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "l2_regularizer",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.0,
+                    "max": 1.0,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+				},
+				{
+					"name": "validation_size",
+                    "type": "double",
+                    "default": 0.0,
+                    "min": 0.0,
+                    "max": 0.0,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+				},
+				{
+					"name": "preprocessing",
+					"type": "cat",
+					"values": [
+						"True",
+						"False"
+					],
+					"default": "True"
+				},
+				{
+					"name": "verbose",
+                    "type": "int",
+                    "default":0,
+                    "min": 0,
+                    "max": 0,
+                    "minInterval": 1,
+                    "refineSplits": 2
+				}
+			]
+		}
+	]
+}
+
