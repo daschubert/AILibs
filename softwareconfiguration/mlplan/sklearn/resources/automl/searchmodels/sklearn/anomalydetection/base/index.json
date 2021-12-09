@@ -2,7 +2,6 @@
     "repository" : "base-index",
     "include" : [
     	"./abod.json",
-    	"./auto_encoder_torch.json",
     	"./cblof.json",
     	"./cof.json",
     	"./copod.json",
