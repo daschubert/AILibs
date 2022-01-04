@@ -520,6 +520,10 @@ public class ScikitLearnWrapper<P extends IPrediction, B extends IPredictionBatc
 			this.logger.debug("Starting process {}", call.substring(1, call.length() - 1));
 		}
 		ProcessBuilder processBuilder = new ProcessBuilder(parameters).directory(CONF.getTempFolder());
+		//FIXME used inheritIO() to have inherent output handling. This might break error logging and should be done in a more elegant way.
+		//https://leo3418.github.io/zh/2021/06/20/java-processbuilder-stdout.html
+		//https://stackoverflow.com/questions/3285408/java-processbuilder-resultant-process-hangs
+		processBuilder.inheritIO();
 		Process process = processBuilder.start();
 		try {
 			this.logger.debug("Started process with PID: {}. Listener is {}", ProcessUtil.getPID(process), listener);
