@@ -52,21 +52,7 @@ public abstract class AProcessListener implements IProcessListener, ILoggingCust
 				}
 				String line;
 				
-				while (this.checkReady(inputReader) && (line = errorReader.readLine()) != null) {
-					if (line.contains("import imp") || line.contains("imp module")) {
-						continue;
-					}
-					if (line.contains("warning") || line.contains("Warning")) {
-						this.logger.info("Interpreted " + line.toString() + " as being a warning and ignored it.");
-						continue;
-					}
-					
-					//TODO: only handles errors that are explicitely stated a being such for the time being (tensorflow throw strange messages sometimes)
-					if (!line.toLowerCase().contains("error")) {
-						this.logger.info("Interpreted " + line.toString() + " as not being an error and ignored it.");
-						continue;
-					}
-						
+				while (this.checkReady(inputReader) && (line = errorReader.readLine()) != null) {						
 					this.handleError(line);
 				}
 			}
