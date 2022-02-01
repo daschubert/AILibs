@@ -62,14 +62,14 @@
 					"values": [
 						"SGD",
 						"RMSprop",						
-						"adam",
+						"Adam",
 						"Adadelta",
 						"Adagrad",
 						"Adamax",
 						"Nadam",
 						"Ftrl"
 					],
-					"default": "adam"
+					"default": "Adam"
 				},
 				{
 					"name": "epochs",

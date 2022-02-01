@@ -81,9 +81,16 @@
 					"name": "optimizer",
 					"type": "cat",
 					"values": [
-						"adam"
+						"SGD",
+						"RMSprop",
+						"Adam",
+						"Adadelta",
+						"Adagrad",
+						"Adamax",
+						"Nadam",
+						"Ftrl"
 					],
-					"default": "adam"
+					"default": "Adam"
 				},
 				{
 					"name": "epochs",
