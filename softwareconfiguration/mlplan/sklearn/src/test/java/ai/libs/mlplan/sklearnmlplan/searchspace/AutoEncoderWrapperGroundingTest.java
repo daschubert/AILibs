@@ -3,6 +3,7 @@ package ai.libs.mlplan.sklearnmlplan.searchspace;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +27,14 @@ public class AutoEncoderWrapperGroundingTest {
 		
 		varMap.put("DEF_MIN_NBR_NEURONS", expectedDefault+"");
 		varMap.put("MAX_MIN_NBR_NEURONS", expectedMaxValue+"");
-		IComponentRepository repo = new ComponentSerialization().deserializeRepository(new ResourceFile("automl/searchmodels/sklearn/anomalydetection/base/autoencoder_wrapper.json"), varMap);
-		IComponent comp = repo.getComponent("AutoEncoderWrapper");
-
-		NumericParameterDomain dom = (NumericParameterDomain) comp.getParameter(parameterName).getDefaultDomain();
-		assertEquals(expectedDefault, comp.getParameter(parameterName).getDefaultValue(), "Default parameter value could not be grounded properly");
-		assertEquals(expectedMaxValue, dom.getMax(), 1E-8);
+		IComponentRepository repo = new ComponentSerialization().deserializeRepository(new ResourceFile("automl/searchmodels/sklearn/pyod-anomalydetection.json"), varMap);
+		
+		for(String name : Arrays.asList("pyod_wrapper.auto_encoder_torch.AutoEncoderTorchWrapper","pyod_wrapper.auto_encoder.AutoEncoderWrapper","pyod_wrapper.vae.VAEWrapper")) {
+			IComponent comp = repo.getComponent(name);
+			NumericParameterDomain dom = (NumericParameterDomain) comp.getParameter(parameterName).getDefaultDomain();
+			assertEquals(expectedDefault, comp.getParameter(parameterName).getDefaultValue(), "Default parameter value could not be grounded properly");
+			assertEquals(expectedMaxValue, dom.getMax(), 1E-8);
+		}
 	}
 	
 }
