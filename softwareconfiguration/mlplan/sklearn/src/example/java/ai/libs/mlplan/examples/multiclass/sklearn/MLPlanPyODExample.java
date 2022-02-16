@@ -39,8 +39,8 @@ public class MLPlanPyODExample {
 	
 	private static Map<String, String> getSearchSpaceVars(ILabeledDataset<?> dataset) {
 		Map<String, String> varMap = new HashMap<>();
-		varMap.put(V_MAX_MIN_NBR_NEURONS, dataset.getNumAttributes()+"");
-		varMap.put(V_DEF_MIN_NBR_NEURONS, Math.min(8, dataset.getNumAttributes())+"");
+		varMap.put(V_MAX_MIN_NBR_NEURONS, (dataset.getNumAttributes()-1)+"");
+		varMap.put(V_DEF_MIN_NBR_NEURONS, Math.max(Math.min(8, dataset.getNumAttributes()-1), 4)+"");
 		return varMap;
 	}
 
