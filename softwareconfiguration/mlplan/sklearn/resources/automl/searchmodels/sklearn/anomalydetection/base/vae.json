@@ -3,11 +3,7 @@
 	"components": [
 		{
 			"name": "pyod.models.vae.VAE",
-			"providedInterface": [
-				"AbstractDetector",
-				"BasicDetector",
-				"BaseLearner"
-			],
+			"providedInterface": [ "AutoEncoderDetector" ],
 			"requiredInterface": [],
 			"parameters": [
 				{

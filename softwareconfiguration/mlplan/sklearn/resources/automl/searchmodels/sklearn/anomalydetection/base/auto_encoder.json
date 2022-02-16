@@ -3,11 +3,7 @@
 	"components": [
 		{
 			"name": "pyod.models.auto_encoder.AutoEncoder",
-			"providedInterface": [
-				"AbstractDetector",
-				"BasicDetector",
-				"BaseLearner"
-			],
+			"providedInterface": [ "AutoEncoderDetector" ],
 			"requiredInterface": [],
 			"parameters": [
 				{

@@ -63,6 +63,9 @@ public abstract class AMLPlanBuilder<L extends ISupervisedLearner<ILabeledInstan
 	/* problem description aspects */
 	private final ComponentSerialization serializer = new ComponentSerialization();
 	private File searchSpaceFile;
+	private IComponentRepository components;
+	private INumericParameterRefinementConfigurationMap parameterRefinementConfigMap;
+	
 	private String requestedHASCOInterface;
 	private String nameOfHASCOMethodToResolveBareLearner;
 	private String nameOfHASCOMethodToResolverLearnerInPipeline;
@@ -210,11 +213,11 @@ public abstract class AMLPlanBuilder<L extends ISupervisedLearner<ILabeledInstan
 	}
 
 	public IComponentRepository getComponents() throws IOException {
-		return this.serializer.deserializeRepository(this.searchSpaceFile);
+		return this.components;
 	}
 
 	public INumericParameterRefinementConfigurationMap getComponentParameterConfigurations() throws IOException {
-		return this.serializer.deserializeParamMap(this.searchSpaceFile);
+		return this.parameterRefinementConfigMap;
 	}
 
 	/**
@@ -280,7 +283,37 @@ public abstract class AMLPlanBuilder<L extends ISupervisedLearner<ILabeledInstan
 	public B withSearchSpaceConfigFile(final File searchSpaceConfig) throws IOException {
 		FileUtil.requireFileExists(searchSpaceConfig);
 		this.searchSpaceFile = searchSpaceConfig;
+		this.components = this.serializer.deserializeRepository(searchSpaceConfig);
+		this.parameterRefinementConfigMap = this.serializer.deserializeParamMap(this.searchSpaceFile);
+		
 		this.logger.info("The search space configuration file has been set to {}.", searchSpaceConfig.getCanonicalPath());
+		return this.getSelf();
+	}
+	
+	/**
+	 * Specify the search space in which ML-Plan is required to work via a component repository.
+	 * @param components The component repository to search.
+	 * @return The builder object.
+	 */
+	public B withComponentRepository(final IComponentRepository components) {
+		this.searchSpaceFile = null;
+		this.parameterRefinementConfigMap = null;
+		this.components = components;
+		this.logger.info("The search space configuration file got overridden by a custom component repository.");
+		return this.getSelf();
+	}
+	
+	/**
+	 * Specify the search space in which ML-Plan is required to work via a component repository. In terms Meta-ML-PLan is meant to be used, this will require the configuration of a parameter refinement configuration map.
+	 * @param components The component repository to search.
+	 * @param parameterRefinementConfigMap The parameter refinement configuration map.
+	 * @return The builder object.
+	 */
+	public B withComponentRepository(final IComponentRepository components, INumericParameterRefinementConfigurationMap parameterRefinementConfigMap) {
+		this.searchSpaceFile = null;
+		this.parameterRefinementConfigMap = parameterRefinementConfigMap;
+		this.components = components;
+		this.logger.info("The search space configuration file got overridden by a custom component repository.");
 		return this.getSelf();
 	}
 

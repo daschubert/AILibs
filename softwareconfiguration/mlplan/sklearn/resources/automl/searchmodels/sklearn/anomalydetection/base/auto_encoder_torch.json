@@ -3,7 +3,7 @@
     "components": [
         {
             "name": "pyod.models.auto_encoder_torch.AutoEncoder",
-            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "providedInterface": [ "AutoEncoderDetector" ],
             "requiredInterface": [],
             "parameters": [
             	{

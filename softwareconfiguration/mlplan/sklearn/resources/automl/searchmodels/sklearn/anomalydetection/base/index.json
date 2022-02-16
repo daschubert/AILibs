@@ -20,6 +20,7 @@
     	"./sos.json",
     	"./auto_encoder.json",
     	"./auto_encoder_torch.json",
+    	"./autoencoder_wrapper.json",
     	"./deep_svdd.json",
     	"./mo_gaal.json",
     	"./rod.json",
