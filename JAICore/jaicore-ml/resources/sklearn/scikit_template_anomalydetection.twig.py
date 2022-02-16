@@ -242,10 +242,12 @@ def run_train_mode(data):
     if targets.shape[1] != 1:
         raise Exception("Can currently only work with single targets.")
     X = features
-    y = targets[:,0].astype("str")
+    #We assume un/semi-supervised anomaly detection. Thus we don't need y
+    #y = targets[:,0].astype("str")
     # Create instance of classifier with given parameters.
     classifier_instance = {{classifier_construct}}
-    classifier_instance.fit(X, y)
+    #classifier_instance.fit(X, y)
+    classifier_instance.fit(X)
     serialize_model(classifier_instance)
 
 def run_train_test_mode(data, testdata):
@@ -259,15 +261,17 @@ def run_train_test_mode(data, testdata):
     if targets.shape[1] != 1:
         raise Exception("Can currently only work with single targets.")
     X = features
-    y = targets[:,0].astype("str")
+    #We assume un/semi-supervised anomaly detection. Thus we don't need y
+    #y = targets[:,0].astype("str")
 
     print("Now training on data with ", len(X), "instances")
-    if (len(X) != len(y)):
-    	raise Exception("Input matrix and prediction vector have different sizes. Prediction vector has length " + str(len(y)))
+    #if (len(X) != len(y)):
+    #	raise Exception("Input matrix and prediction vector have different sizes. Prediction vector has length " + str(len(y)))
     	
     # Create instance of classifier with given parameters.
     classifier_instance = {{classifier_construct}}
-    classifier_instance.fit(X, y)
+    #classifier_instance.fit(X, y)
+    classifier_instance.fit(X)
     
     test_features = np.array(testdata.input_matrix)
     

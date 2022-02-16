@@ -1,9 +1,13 @@
 {
-	"repository": "pyod.models.auto_encoder.AutoEncoder",
+	"repository": "pyod_wrapper.auto_encoder.AutoEncoderWrapper",
 	"components": [
 		{
-			"name": "pyod.models.auto_encoder.AutoEncoder",
-			"providedInterface": [ "AutoEncoderDetector" ],
+			"name": "pyod_wrapper.auto_encoder.AutoEncoderWrapper",
+			"providedInterface": [
+				"AbstractDetector",
+				"BasicDetector",
+				"BaseLearner"
+			],
 			"requiredInterface": [],
 			"parameters": [
 				{
@@ -14,6 +18,15 @@
 					"max": 0.5,
 					"minInterval": 0.01,
 					"refineSplits": 2
+				},
+				{
+					"name": "min_nbr_neurons",
+					"type": "int",
+					"default": "{$DEF_MIN_NBR_NEURONS}",
+					"min": 4,
+					"max": "{$MAX_MIN_NBR_NEURONS}",
+					"minInterval": 1,
+					"refineSplits": 8
 				},
 				{
 					"name": "hidden_activation",
@@ -51,7 +64,24 @@
 					"name": "loss",
 					"type": "cat",
 					"values": [
-						"mean_squared_error"
+						"binary_crossentropy",
+						"categorical_crossentropy",
+						"sparse_categorical_crossentropy",
+						"poisson",
+						"binary_crossentropy",
+						"categorical_crossentropy",
+						"sparse_categorical_crossentropy",
+						"kl_divergence",
+						"mean_squared_error",
+						"mean_absolute_error",
+						"mean_absolute_percentage_error",
+						"mean_squared_logarithmic_error",
+						"cosine_similarity",
+						"huber_loss",
+						"log_cosh",
+						"hinge",
+						"squared_hinge",
+						"categorical_hinge"
 					],
 					"default": "mean_squared_error"
 				},
