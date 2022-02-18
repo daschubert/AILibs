@@ -213,10 +213,24 @@ public abstract class AMLPlanBuilder<L extends ISupervisedLearner<ILabeledInstan
 	}
 
 	public IComponentRepository getComponents() throws IOException {
+		if(this.components == null) {
+			if(this.searchSpaceFile != null) {
+				this.components = this.serializer.deserializeRepository(this.searchSpaceFile);
+			} else {
+				throw new IllegalStateException("No components and no search space configuration file have been configured.");
+			}
+		}
 		return this.components;
 	}
 
 	public INumericParameterRefinementConfigurationMap getComponentParameterConfigurations() throws IOException {
+		if(this.parameterRefinementConfigMap == null) {
+			if(this.searchSpaceFile != null) {
+				this.parameterRefinementConfigMap = this.serializer.deserializeParamMap(this.searchSpaceFile);
+			} else {
+				throw new IllegalStateException("No parameter refinement config and no search space configuration file have been configured.");
+			}
+		}
 		return this.parameterRefinementConfigMap;
 	}
 
@@ -283,9 +297,6 @@ public abstract class AMLPlanBuilder<L extends ISupervisedLearner<ILabeledInstan
 	public B withSearchSpaceConfigFile(final File searchSpaceConfig) throws IOException {
 		FileUtil.requireFileExists(searchSpaceConfig);
 		this.searchSpaceFile = searchSpaceConfig;
-		this.components = this.serializer.deserializeRepository(searchSpaceConfig);
-		this.parameterRefinementConfigMap = this.serializer.deserializeParamMap(this.searchSpaceFile);
-		
 		this.logger.info("The search space configuration file has been set to {}.", searchSpaceConfig.getCanonicalPath());
 		return this.getSelf();
 	}
