@@ -3,6 +3,7 @@ package ai.libs.mlplan.core;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -29,6 +30,8 @@ import ai.libs.hasco.builder.HASCOBuilder;
 import ai.libs.hasco.builder.forwarddecomposition.HASCOViaFDAndBestFirstWithRandomCompletionsBuilder;
 import ai.libs.jaicore.basic.MathExt;
 import ai.libs.jaicore.basic.sets.Pair;
+import ai.libs.jaicore.components.api.IComponent;
+import ai.libs.jaicore.components.api.INumericParameterRefinementConfigurationMap;
 import ai.libs.jaicore.components.model.RefinementConfiguredSoftwareConfigurationProblem;
 import ai.libs.jaicore.ml.core.evaluation.evaluator.factory.ISupervisedLearnerEvaluatorFactory;
 import ai.libs.jaicore.ml.core.evaluation.evaluator.factory.LearnerEvaluatorConstructionFailedException;
@@ -147,6 +150,42 @@ abstract class MLPlanUtil {
 		} catch (IOException e) {
 			throw new IllegalArgumentException("Invalid configuration file " + searchSpaceFile, e);
 		}
+		HASCOViaFDAndBestFirstWithRandomCompletionsBuilder hascoBuilder = HASCOBuilder.get(problem).withBestFirst().withRandomCompletions();
+
+		/* now configure the chain of preferred node evaluators (taking in account that the ones about checking validity and preferred components are the most important one) */
+		List<IPathEvaluator<TFDNode, String, Double>> neChain = new ArrayList<>();
+		if (pipelineValidityCheckingNodeEvaluator != null) {
+			pipelineValidityCheckingNodeEvaluator.setComponents(problem.getComponents());
+			pipelineValidityCheckingNodeEvaluator.setData(dataset);
+			neChain.add(pipelineValidityCheckingNodeEvaluator);
+		}
+		if (algorithmConfig.preferredComponents() != null && !algorithmConfig.preferredComponents().isEmpty()) {
+			Objects.requireNonNull(nameOfMethod1, "First HASCO method must not be null!");
+			Objects.requireNonNull(nameOfMethod2, "Second HASCO method must not be null!");
+			neChain.add(new PreferenceBasedNodeEvaluator(problem.getComponents(), algorithmConfig.preferredComponents(), nameOfMethod1, nameOfMethod2));
+		}
+		neChain.addAll(preferredNodeEvaluators);
+		if (!neChain.isEmpty()) {
+			IPathEvaluator<TFDNode, String, Double> preferredNodeEvaluator = neChain.remove(0);
+			for (IPathEvaluator<TFDNode, String, Double> ne : neChain) {
+				preferredNodeEvaluator = new AlternativeNodeEvaluator<>(preferredNodeEvaluator, ne);
+			}
+			hascoBuilder.withPreferredNodeEvaluator(preferredNodeEvaluator);
+		}
+		hascoBuilder.withNumSamples(algorithmConfig.numberOfRandomCompletions());
+		hascoBuilder.withSeed(algorithmConfig.seed());
+		hascoBuilder.withTimeoutForNode(new Timeout(algorithmConfig.timeoutForNodeEvaluation(), TimeUnit.MILLISECONDS));
+		hascoBuilder.withTimeoutForSingleEvaluation(new Timeout(algorithmConfig.timeoutForCandidateEvaluation(), TimeUnit.MILLISECONDS));
+		hascoBuilder.withPriorizingPredicate(priorizingPredicate);
+		return hascoBuilder;
+	}
+
+	public static HASCOViaFDAndBestFirstWithRandomCompletionsBuilder getHASCOBuilder(final MLPlanClassifierConfig algorithmConfig, final ILabeledDataset<?> dataset, final Collection<? extends IComponent> components, final INumericParameterRefinementConfigurationMap paramRefinementConfig, final String requestedHASCOInterface,
+			final Predicate<TFDNode> priorizingPredicate, final List<IPathEvaluator<TFDNode, String, Double>> preferredNodeEvaluators, final PipelineValidityCheckingNodeEvaluator pipelineValidityCheckingNodeEvaluator, final String nameOfMethod1, final String nameOfMethod2) {
+
+		/* compile software composition problem and create the builder */
+		RefinementConfiguredSoftwareConfigurationProblem<Double> problem;
+		problem = new RefinementConfiguredSoftwareConfigurationProblem<>(components, requestedHASCOInterface, null, paramRefinementConfig);
 		HASCOViaFDAndBestFirstWithRandomCompletionsBuilder hascoBuilder = HASCOBuilder.get(problem).withBestFirst().withRandomCompletions();
 
 		/* now configure the chain of preferred node evaluators (taking in account that the ones about checking validity and preferred components are the most important one) */

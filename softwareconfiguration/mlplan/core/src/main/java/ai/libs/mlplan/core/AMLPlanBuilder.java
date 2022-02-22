@@ -500,7 +500,7 @@ public abstract class AMLPlanBuilder<L extends ISupervisedLearner<ILabeledInstan
 
 	@Override
 	public HASCOViaFDBuilder<Double, ?> getHASCOFactory() {
-		return MLPlanUtil.getHASCOBuilder(this.algorithmConfig, this.dataset, this.searchSpaceFile, this.requestedHASCOInterface, this.priorizingPredicate, this.preferredNodeEvaluators, this.pipelineValidityCheckingNodeEvaluator,
+		return MLPlanUtil.getHASCOBuilder(this.algorithmConfig, this.dataset, this.components, this.parameterRefinementConfigMap, this.requestedHASCOInterface, this.priorizingPredicate, this.preferredNodeEvaluators, this.pipelineValidityCheckingNodeEvaluator,
 				this.nameOfHASCOMethodToResolveBareLearner, this.nameOfHASCOMethodToResolverLearnerInPipeline);
 	}
 
