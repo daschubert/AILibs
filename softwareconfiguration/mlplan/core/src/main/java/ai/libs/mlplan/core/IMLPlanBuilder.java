@@ -1,6 +1,8 @@
 package ai.libs.mlplan.core;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
 
 import org.api4.java.ai.ml.core.dataset.splitter.IFoldSizeConfigurableRandomDatasetSplitter;
 import org.api4.java.ai.ml.core.dataset.supervised.ILabeledDataset;
@@ -9,6 +11,8 @@ import org.api4.java.ai.ml.core.evaluation.supervised.loss.IDeterministicPredict
 import org.api4.java.ai.ml.core.learner.ISupervisedLearner;
 
 import ai.libs.hasco.builder.forwarddecomposition.HASCOViaFDBuilder;
+import ai.libs.jaicore.components.api.IComponent;
+import ai.libs.jaicore.components.api.INumericParameterRefinementConfigurationMap;
 import ai.libs.jaicore.ml.core.evaluation.evaluator.factory.ISupervisedLearnerEvaluatorFactory;
 import ai.libs.jaicore.ml.core.evaluation.evaluator.factory.LearnerEvaluatorConstructionFailedException;
 import ai.libs.mlplan.multiclass.MLPlanClassifierConfig;
@@ -64,4 +68,8 @@ public interface IMLPlanBuilder<L extends ISupervisedLearner<ILabeledInstance, I
 	public double getPortionOfDataReservedForSelectionPhase();
 
 	public B getSelf();
+
+	public Collection<? extends IComponent> getComponents() throws IOException;
+
+	public INumericParameterRefinementConfigurationMap getComponentParameterConfigurations() throws IOException;
 }

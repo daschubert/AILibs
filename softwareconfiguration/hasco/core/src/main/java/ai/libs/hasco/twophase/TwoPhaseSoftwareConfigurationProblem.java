@@ -2,9 +2,11 @@ package ai.libs.hasco.twophase;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 
 import org.api4.java.common.attributedobjects.IObjectEvaluator;
 
+import ai.libs.jaicore.components.api.IComponent;
 import ai.libs.jaicore.components.api.IComponentInstance;
 import ai.libs.jaicore.components.api.INumericParameterRefinementConfigurationMap;
 import ai.libs.jaicore.components.model.RefinementConfiguredSoftwareConfigurationProblem;
@@ -18,6 +20,14 @@ public class TwoPhaseSoftwareConfigurationProblem extends RefinementConfiguredSo
 		super(configurationFile, requiredInterface, compositionEvaluator);
 		this.selectionBenchmark = selectionBenchmark;
 	}
+	
+
+	public TwoPhaseSoftwareConfigurationProblem(final Collection<? extends IComponent> components, final String requiredInterface, final IObjectEvaluator<IComponentInstance, Double> compositionEvaluator,
+			final IObjectEvaluator<IComponentInstance, Double> selectionBenchmark, final INumericParameterRefinementConfigurationMap paramRefinementConfig) throws IOException {
+		super(components, requiredInterface, compositionEvaluator,paramRefinementConfig);
+		this.selectionBenchmark = selectionBenchmark;
+	}
+
 
 	public TwoPhaseSoftwareConfigurationProblem(final SoftwareConfigurationProblem<Double> coreProblem, final INumericParameterRefinementConfigurationMap paramRefinementConfig,
 			final IObjectEvaluator<IComponentInstance, Double> selectionBenchmark) {

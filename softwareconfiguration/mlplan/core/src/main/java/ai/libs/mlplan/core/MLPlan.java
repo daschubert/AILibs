@@ -186,7 +186,7 @@ public class MLPlan<L extends ISupervisedLearner<ILabeledInstance, ILabeledDatas
 			this.logger.debug("Creating 2-phase software configuration problem.");
 			TwoPhaseSoftwareConfigurationProblem problem = null;
 			try {
-				problem = new TwoPhaseSoftwareConfigurationProblem(this.builder.getSearchSpaceConfigFile(), this.builder.getRequestedInterface(), this.classifierEvaluatorForSearch, this.classifierEvaluatorForSelection);
+				problem = new TwoPhaseSoftwareConfigurationProblem(this.builder.getComponents(), this.builder.getRequestedInterface(), this.classifierEvaluatorForSearch, this.classifierEvaluatorForSelection, this.builder.getComponentParameterConfigurations());
 			} catch (IOException e1) {
 				throw new AlgorithmException("Could not create the 2-phase configuration problem with search space file \"" + this.builder.getSearchSpaceConfigFile() + "\" and required interface " + this.builder.getRequestedInterface(),
 						e1);
