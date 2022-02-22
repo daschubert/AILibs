@@ -584,7 +584,7 @@ public abstract class AMLPlanBuilder<L extends ISupervisedLearner<ILabeledInstan
 	public void checkPreconditionsForInitialization() {
 
 		/* check proper problem definition */
-		Objects.requireNonNull(this.searchSpaceFile, "No search space file defined.");
+		Objects.requireNonNull(this.components, "No search space file defined.");
 		Objects.requireNonNull(this.requestedHASCOInterface, "No requested HASCO interface defined!");
 
 		/* check that data is available */
