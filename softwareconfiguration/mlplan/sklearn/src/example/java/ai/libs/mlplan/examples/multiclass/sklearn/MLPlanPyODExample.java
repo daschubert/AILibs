@@ -59,8 +59,10 @@ public class MLPlanPyODExample {
 		
 		ComponentSerialization searchspaceLoader = new ComponentSerialization();
 		Map<String, String> searchSpaceVarMap = getSearchSpaceVars(dataset);
-		IComponentRepository components = searchspaceLoader.deserializeRepository(new ResourceFile("automl/searchmodels/sklearn/anomalydetection/pyod-anomalydetection.json"), searchSpaceVarMap);
-		builder.withComponentRepository(components);
+		
+		ResourceFile searchspaceConfig = new ResourceFile("automl/searchmodels/sklearn/pyod-anomalydetection.json");
+		IComponentRepository components = searchspaceLoader.deserializeRepository(searchspaceConfig, searchSpaceVarMap);
+		builder.withComponentRepository(components, searchspaceLoader.deserializeParamMap(searchspaceConfig));
 		
 		builder.withNodeEvaluationTimeOut(new Timeout(30, TimeUnit.SECONDS));
 		builder.withCandidateEvaluationTimeOut(new Timeout(10, TimeUnit.SECONDS));
