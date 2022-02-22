@@ -185,6 +185,15 @@ public class ComponentSerialization implements ILoggingCustomizable {
 	public INumericParameterRefinementConfigurationMap deserializeParamMap(final File jsonFile) throws IOException {
 		return this.deserializeParamMap(this.readRepositoryFile(jsonFile));
 	}
+	
+
+	public INumericParameterRefinementConfigurationMap deserializeParamMap(final File jsonFile, final Map<String, String> templateVars) throws IOException {
+		try {
+			return this.deserializeParamMap(this.readRepositoryFile(jsonFile, templateVars));
+		} catch (IllegalArgumentException e) {
+			throw new IllegalArgumentException("Found a problem when parsing repository file " + jsonFile, e);
+		}
+	}
 
 	public INumericParameterRefinementConfigurationMap deserializeParamMap(final String json) throws IOException {
 		return this.deserializeParamMap(new ObjectMapper().readTree(json));
