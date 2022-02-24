@@ -70,6 +70,15 @@
                         "False"
                     ],
                     "default": "True"
+                },
+{
+                    "name": "tol",
+                    "type": "double",
+                    "default": 0.001,
+                    "min": 0,
+                    "max": 0.2,
+                    "minInterval": 1,
+                    "refineSplits": 2
                 }
             ]
         }
