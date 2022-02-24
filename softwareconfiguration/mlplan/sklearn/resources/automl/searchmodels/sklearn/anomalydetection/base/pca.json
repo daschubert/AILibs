@@ -54,15 +54,6 @@
                     "refineSplits": 2
                 },
                 {
-                    "name": "iterated_power",
-                    "type": "double",
-                    "default": 0.0,
-                    "min": 0.0,
-                    "max": 1,
-                    "minInterval": 0.001,
-                    "refineSplits": 2
-                },
-                {
                     "name": "random_state",
                     "type": "cat",
                     "values": [
