@@ -1,46 +1,59 @@
 {
-    "repository": "pyod.models.deep_svdd.DeepSVDD",
-    "components": [
-        {
-            "name": "pyod.models.deep_svdd.DeepSVDD",
-            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
-            "requiredInterface": [],
-            "parameters": [
-            	{
-                    "name": "contamination",
-                    "type": "double",
-                    "default": 0.1,
-                    "min": 0.0,
-                    "max": 0.5,
-                    "minInterval": 0.01,
-                    "refineSplits": 2
-                },
-                {
-                    "name": "use_ae",
-                    "type": "cat",
-                    "values": [
-                        "True",
-                        "False"
-                    ],
-                    "default": "False"
-                },
-                {
-                    "name": "hidden_activation",
-                    "type": "cat",
-                    "values": [
-                         "relu",
-                         "sigmoid",
-                         "softmax",
-                         "softplus",
-                         "softsign",
-                         "tanh",
-                         "selu",
-                         "elu",
-                         "exponential" 
-                    ],
-                    "default": "relu"
-                },
-                {
+	"repository": "pyod_wrapper.deep_svdd.DeepSVDDWrapper",
+	"components": [
+		{
+			"name": "pyod_wrapper.deep_svdd.DeepSVDDWrapper",
+			"providedInterface": [
+				"AbstractDetector",
+				"BasicDetector",
+				"BaseLearner"
+			],
+			"requiredInterface": [],
+			"parameters": [
+				{
+					"name": "contamination",
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 0.5,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "min_nbr_neurons",
+					"type": "int",
+					"default": "{$DEF_MIN_NBR_NEURONS}",
+					"min": 1,
+					"max": "{$MAX_MIN_NBR_NEURONS}",
+					"minInterval": 1,
+					"refineSplits": 8
+				},
+				{
+					"name": "use_ae",
+					"type": "cat",
+					"values": [
+						"True",
+						"False"
+					],
+					"default": "False"
+				},
+				{
+					"name": "hidden_activation",
+					"type": "cat",
+					"values": [
+						"relu",
+						"sigmoid",
+						"softmax",
+						"softplus",
+						"softsign",
+						"tanh",
+						"selu",
+						"elu",
+						"exponential"
+					],
+					"default": "relu"
+				},
+				{
 					"name": "output_activation",
 					"type": "cat",
 					"values": [
@@ -61,7 +74,7 @@
 					"type": "cat",
 					"values": [
 						"SGD",
-						"RMSprop",						
+						"RMSprop",
 						"Adam",
 						"Adadelta",
 						"Adagrad",
@@ -100,21 +113,21 @@
 				},
 				{
 					"name": "l2_regularizer",
-                    "type": "double",
-                    "default": 0.1,
-                    "min": 0.0,
-                    "max": 1.0,
-                    "minInterval": 0.01,
-                    "refineSplits": 2
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 1.0,
+					"minInterval": 0.01,
+					"refineSplits": 2
 				},
 				{
 					"name": "validation_size",
-                    "type": "double",
-                    "default": 0.0,
-                    "min": 0.0,
-                    "max": 0.0,
-                    "minInterval": 0.01,
-                    "refineSplits": 2
+					"type": "double",
+					"default": 0.0,
+					"min": 0.0,
+					"max": 0.0,
+					"minInterval": 0.01,
+					"refineSplits": 2
 				},
 				{
 					"name": "preprocessing",
@@ -125,7 +138,7 @@
 					],
 					"default": "True"
 				}
-            ]
-        }
-    ]
+			]
+		}
+	]
 }
