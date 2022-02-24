@@ -1,60 +1,85 @@
 {
-    "repository": "pyod.models.lof.LOF",
-    "components": [
-        {
-            "name": "pyod.models.lof.LOF",
-            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
-            "requiredInterface": [],
-            "parameters": [
-            	{
-                    "name": "contamination",
-                    "type": "double",
-                    "default": 0.1,
-                    "min": 0.0,
-                    "max": 0.5,
-                    "minInterval": 0.01,
-                    "refineSplits": 2
-                },
-                {
-                    "name": "n_neighbors",
-                    "type": "int",
-                    "default": 20,
-                    "min": 2,
-                    "max": 50,
-                    "minInterval": 1,
-                    "refineSplits": 2
-                },
-                {
-                    "name": "metric",
-                    "type": "cat",
-                    "values": [
-                        "cityblock",
-                        "cosine",
-                        "euclidean",
-                        "l1",
-                        "l2",
-                        "manhattan",
-                        "braycurtis",
-                        "canberra",
-                        "chebyshev",
-                        "correlation",
-                        "dice",
-                        "hamming",
-                        "jaccard",
-                        "kulsinski",
-                        "mahalanobis",
-                        "matching",
-                        "rogerstanimoto",
-                        "russellrao",
-                        "seuclidean",
-                        "sokalmichener",
-                        "sokalsneath",
-                        "sqeuclidean",
-                        "yule"
-                    ],
-                    "default": "euclidean"
-                }
-            ]
-        }
-    ]
+	"repository": "pyod.models.lof.LOF",
+	"components": [
+		{
+			"name": "pyod.models.lof.LOF",
+			"providedInterface": [
+				"AbstractDetector",
+				"BasicDetector",
+				"BaseLearner"
+			],
+			"requiredInterface": [],
+			"parameters": [
+				{
+					"name": "contamination",
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 0.5,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "n_neighbors",
+					"type": "int",
+					"default": 20,
+					"min": 2,
+					"max": 50,
+					"minInterval": 1,
+					"refineSplits": 2
+				},
+				{
+					"name": "algorithm",
+					"type": "cat",
+					"values": [
+						"ball_tree",
+						"kd_tree",
+						"brute"
+					],
+					"default": "ball_tree"
+				},
+				{
+					"name": "metric",
+					"type": "cat",
+					"values": [
+						"canberra",
+						"manhattan",
+						"l2",
+						"hamming",
+						"sokalmichener",
+						"braycurtis",
+						"infinity",
+						"p",
+						"euclidean",
+						"l1",
+						"matching",
+						"sokalsneath",
+						"dice",
+						"kulsinski",
+						"minkowski",
+						"rogerstanimoto",
+						"cityblock",
+						"russellrao",
+						"jaccard",
+						"chebyshev"
+					],
+					"default": "euclidean"
+				}
+			],
+			"dependencies": [
+				{
+					"pre": "algorithm in {ball_tree}",
+					"post": "metric in {euclidean, l2, minkowski, p, manhattan, cityblock, l1, chebyshev, infinity, hamming, canberra, braycurtis, matching, jaccard, dice, kulsinski, rogerstanimoto, russellrao, sokalmichener, sokalsneath}"
+				},
+				{
+					"pre": "algorithm in {kd_tree}",
+					"post": "metric in {euclidean, l2, minkowski, p, manhattan, cityblock, l1, chebyshev, infinity}"
+				},
+				{
+					"pre": "algorithm in {brute}",
+					"post": "metric in {braycurtis, canberra, chebyshev, dice, hamming, jaccard, kulsinski, matching, minkowski, rogerstanimoto, russellrao, sokalmichener, sokalsneath, wminkowski}"
+				}
+			]
+		}
+	]
 }
