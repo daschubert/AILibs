@@ -1,48 +1,52 @@
 {
-    "repository": "pyod.models.sod.SOD",
-    "components": [
-        {
-            "name": "pyod.models.sod.SOD",
-            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
-            "requiredInterface": [],
-            "parameters": [
-            	{
-                    "name": "contamination",
-                    "type": "double",
-                    "default": 0.1,
-                    "min": 0.0,
-                    "max": 0.5,
-                    "minInterval": 0.01,
-                    "refineSplits": 2
-                },
-                {
-                    "name": "n_neighbors",
-                    "type": "int",
-                    "default": 20,
-                    "min": 1,
-                    "max": 50,
-                    "minInterval": 1,
-                    "refineSplits": 2
-                },
-                {
-                    "name": "ref_set",
-                    "type": "int",
-                    "default": 10,
-                    "min": 1,
-                    "max": 50,
-                    "minInterval": 1,
-                    "refineSplits": 2
-                },
-                {
-                    "name": "alpha",
-                    "type": "double",
-                    "default": 0.8,
-                    "min": 0.1,
-                    "max": 0.99,
-                    "minInterval": 0.05,
-                    "refineSplits": 2
-                }
-            ]
-        }
-    ]
+	"repository": "pyod.models.sod.SOD",
+	"components": [
+		{
+			"name": "pyod.models.sod.SOD",
+			"providedInterface": [
+				"AbstractDetector",
+				"BasicDetector",
+				"BaseLearner"
+			],
+			"requiredInterface": [],
+			"parameters": [
+				{
+					"name": "contamination",
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 0.5,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "n_neighbors",
+					"type": "int",
+					"default": 20,
+					"min": 1,
+					"max": 50,
+					"minInterval": 1,
+					"refineSplits": 2
+				},
+				{
+					"name": "ref_set",
+					"type": "int",
+					"default": 10,
+					"min": 1,
+					"max": 50,
+					"minInterval": 1,
+					"refineSplits": 2
+				},
+				{
+					"name": "alpha",
+					"type": "double",
+					"default": 0.8,
+					"min": 0.1,
+					"max": 0.99,
+					"minInterval": 0.05,
+					"refineSplits": 2
+				}
+			]
+		}
+	]
 }
