@@ -23,7 +23,7 @@
 					"name": "min_nbr_neurons",
 					"type": "int",
 					"default": "{$DEF_MIN_NBR_NEURONS}",
-					"min": 4,
+					"min": 1,
 					"max": "{$MAX_MIN_NBR_NEURONS}",
 					"minInterval": 1,
 					"refineSplits": 8
@@ -65,12 +65,8 @@
 					"type": "cat",
 					"values": [
 						"binary_crossentropy",
-						"categorical_crossentropy",
-						"sparse_categorical_crossentropy",
 						"poisson",
 						"binary_crossentropy",
-						"categorical_crossentropy",
-						"sparse_categorical_crossentropy",
 						"kl_divergence",
 						"mean_squared_error",
 						"mean_absolute_error",
@@ -80,8 +76,7 @@
 						"huber_loss",
 						"log_cosh",
 						"hinge",
-						"squared_hinge",
-						"categorical_hinge"
+						"squared_hinge"
 					],
 					"default": "mean_squared_error"
 				},

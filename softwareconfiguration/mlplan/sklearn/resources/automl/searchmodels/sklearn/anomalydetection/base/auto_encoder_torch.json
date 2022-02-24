@@ -23,7 +23,7 @@
 					"name": "min_nbr_neurons",
 					"type": "int",
 					"default": "{$DEF_MIN_NBR_NEURONS}",
-					"min": 4,
+					"min": 1,
 					"max": "{$MAX_MIN_NBR_NEURONS}",
 					"minInterval": 1,
 					"refineSplits": 8
