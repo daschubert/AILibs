@@ -23,6 +23,15 @@
                     "max": 100,
                     "minInterval": 1,
                     "refineSplits": 2
+                },
+                {
+                    "name": "method",
+                    "type": "cat",
+                    "values": [
+                         "fast",
+                         "default"
+                    ],
+                    "default": "default"
                 }
             ]
         }
