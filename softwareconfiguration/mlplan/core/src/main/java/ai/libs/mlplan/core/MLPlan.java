@@ -78,10 +78,6 @@ public class MLPlan<L extends ISupervisedLearner<ILabeledInstance, ILabeledDatas
 	protected MLPlan(final IMLPlanBuilder<L, ?> builder, final ILabeledDataset<?> data) { // ML-Plan has a package visible constructor, because it should only be constructed using a builder
 		super(builder.getAlgorithmConfig(), data);
 
-		/* sanity checks */
-		if (builder.getSearchSpaceConfigFile() == null || !builder.getSearchSpaceConfigFile().exists()) {
-			throw new IllegalArgumentException("The search space configuration file must be set in MLPlanBuilder, and it must be set to a file that exists!");
-		}
 		Objects.requireNonNull(builder.getLearnerFactory(), "The learner factory must be set in MLPlanBuilder!");
 		if (builder.getRequestedInterface() == null || builder.getRequestedInterface().isEmpty()) {
 			throw new IllegalArgumentException("No requested HASCO interface defined!");
