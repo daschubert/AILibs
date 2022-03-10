@@ -42,8 +42,6 @@
 					"type": "cat",
 					"values": [
 						"relu",
-						"sigmoid",
-						"softmax",
 						"softplus",
 						"softsign",
 						"tanh",
