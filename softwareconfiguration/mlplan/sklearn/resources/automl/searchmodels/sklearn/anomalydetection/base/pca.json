@@ -37,12 +37,11 @@
                     "name": "svd_solver",
                     "type": "cat",
                     "values": [
-                        "auto",
                         "full",
                         "arpack",
                         "randomized"
                     ],
-                    "default": "auto"
+                    "default": "full"
                 },
                 {
                     "name": "tol",
