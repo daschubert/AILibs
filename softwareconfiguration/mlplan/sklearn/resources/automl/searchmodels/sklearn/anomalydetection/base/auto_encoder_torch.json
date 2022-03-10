@@ -33,12 +33,8 @@
 					"type": "cat",
 					"values": [
 						"relu",
-						"softplus",
-						"softsign",
-						"tanh",
-						"selu",
-						"elu",
-						"exponential"
+						"sigmoid",
+						"tanh"
 					],
 					"default": "relu"
 				},
