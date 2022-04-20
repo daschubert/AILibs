@@ -43,7 +43,9 @@ public class DefaultProcessListener extends AProcessListener implements ILogging
 
 	@Override
 	public void handleError(final String error) {
-		this.errorSB.append(error + "\n");
+		//We only log error as warnings are also passed via stdout.
+		//Thus, we consider executions with valid result files as being successful.
+		//this.errorSB.append(error + "\n");
 		this.logger.error(">>> {}", error);
 	}
 

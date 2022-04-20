@@ -51,9 +51,13 @@ public abstract class AProcessListener implements IProcessListener, ILoggingCust
 					throw new InterruptedException("Process execution was interrupted.");
 				}
 				String line;
-				
-				while (this.checkReady(inputReader) && (line = errorReader.readLine()) != null) {						
+
+				while (this.checkReady(errorReader) && (line = errorReader.readLine()) != null) {						
 					this.handleError(line);
+				}
+				
+				while (this.checkReady(inputReader) && (line = inputReader.readLine()) != null) {						
+					this.handleInput(line);
 				}
 			}
 		}
