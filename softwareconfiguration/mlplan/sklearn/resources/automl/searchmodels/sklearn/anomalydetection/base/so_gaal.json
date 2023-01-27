@@ -43,15 +43,6 @@
                     "refineSplits": 2
                 },
                 {
-                    "name": "decay",
-                    "type": "double",
-                    "default": 0.000001,
-                    "min": 0.0,
-                    "max": 0.5,
-                    "minInterval": 0.01,
-                    "refineSplits": 2
-                },
-                {
                     "name": "momentum",
                     "type": "double",
                     "default": 0.9,
