@@ -121,6 +121,18 @@ public class AnomalyDetectorExecutionTest {
 	}
 	
 	@Test
+	public void testALAD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod_wrapper.alad.ALADWrapper");
+	}
+	
+	@Test
+	public void testAnoGAN() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod_wrapper.anogan.AnoGANWrapper");
+	}
+	
+	@Test
 	public void testAutoEncoderTorch() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod_wrapper.auto_encoder_torch.AutoEncoderTorchWrapper");
@@ -151,6 +163,18 @@ public class AnomalyDetectorExecutionTest {
 	}
 	
 	@Test
+	public void testECOD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.ecod.ECOD");
+	}
+	
+	@Test
+	public void testGMM() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.gmm.GMM");
+	}
+	
+	@Test
 	public void testHBOS() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.hbos.HBOS");
@@ -163,9 +187,27 @@ public class AnomalyDetectorExecutionTest {
 	}
 	
 	@Test
+	public void testINNE() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.inne.INNE");
+	}
+	
+	@Test
+	public void testKDE() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.kde.KDE");
+	}
+	
+	@Test
 	public void testKNN() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.knn.KNN");
+	}
+	
+	@Test
+	public void testKPCA() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.kpca.KPCA");
 	}
 	
 	@Test
@@ -193,6 +235,12 @@ public class AnomalyDetectorExecutionTest {
 	}
 	
 	@Test
+	public void testLunar() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod_wrapper.lunar.LUNARWrapper");
+	}
+	
+	@Test
 	public void testMCD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.mcd.MCD");
@@ -217,9 +265,21 @@ public class AnomalyDetectorExecutionTest {
 	}
 	
 	@Test
+	public void testRGraph() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.rgraph.RGraph");
+	}
+	
+	@Test
 	public void testROD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.rod.ROD");
+	}
+	
+	@Test
+	public void testSampling() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.sampling.Sampling");
 	}
 	
 	@Test

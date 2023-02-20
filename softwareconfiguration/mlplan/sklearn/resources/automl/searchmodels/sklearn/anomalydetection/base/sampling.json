@@ -1,0 +1,61 @@
+{
+	"repository": "pyod.models.sampling.Sampling",
+	"components": [
+		{
+			"name": "pyod.models.sampling.Sampling",
+			"providedInterface": [
+				"AbstractDetector",
+				"BasicDetector",
+				"BaseLearner"
+			],
+			"requiredInterface": [],
+			"parameters": [
+				{
+					"name": "contamination",
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 0.5,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "subset_size",
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 1.0,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "metric",
+					"type": "cat",
+					"values": [
+						"canberra",
+						"manhattan",
+						"l2",
+						"hamming",
+						"sokalmichener",
+						"braycurtis",
+						"infinity",
+						"p",
+						"euclidean",
+						"l1",
+						"matching",
+						"sokalsneath",
+						"dice",
+						"kulsinski",
+						"minkowski",
+						"rogerstanimoto",
+						"cityblock",
+						"russellrao",
+						"jaccard",
+						"chebyshev"
+					],
+					"default": "minkowski"
+				}
+			]
+		}
+	]
+}

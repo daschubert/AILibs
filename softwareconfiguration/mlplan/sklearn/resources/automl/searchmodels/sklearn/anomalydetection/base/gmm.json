@@ -1,0 +1,95 @@
+{
+    "repository": "pyod.models.gmm.GMM",
+    "components": [
+        {
+            "name": "pyod.models.gmm.GMM",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameters": [
+            	{
+                    "name": "contamination",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "n_components",
+                    "type": "int",
+                    "default": 1,
+                    "min": 1,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "covariance_type",
+                    "type": "cat",
+                    "values": [
+                        "full",
+                        "tied",
+                        "diag",
+                        "spherical"
+                    ],
+                    "default": "full"
+                },
+                {
+                    "name": "tol",
+                    "type": "double",
+                    "default": 0.001,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.0001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "reg_covar",
+                    "type": "double",
+                    "default": 0.000001,
+                    "min": 0.0,
+                    "max": 0.2,
+                    "minInterval": 0.00000001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "max_iter",
+                    "type": "int",
+                    "default": 100,
+                    "min": 1,
+                    "max": 1000,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "n_init",
+                    "type": "int",
+                    "default": 1,
+                    "min": 1,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "init_params",
+                    "type": "cat",
+                    "values": [
+                        "kmeans",
+                        "random"
+                    ],
+                    "default": "kmeans"
+                },
+                {
+                    "name": "warm_start",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "False"
+                }
+            ]
+        }
+    ]
+}

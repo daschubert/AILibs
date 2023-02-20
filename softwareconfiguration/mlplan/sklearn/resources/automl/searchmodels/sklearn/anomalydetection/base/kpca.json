@@ -1,0 +1,131 @@
+{
+    "repository": "pyod.models.kpca.KPCA",
+    "components": [
+        {
+            "name": "pyod.models.kpca.KPCA",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameters": [
+            	{
+                    "name": "contamination",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "kernel",
+                    "type": "cat",
+                    "values": [
+                        "linear",
+                        "ploy",
+                        "rbf",
+                        "sigmoid"
+                    ],
+                    "default": "rbf"
+                },
+                {
+                    "name": "gamma",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.001,
+                    "max": 1,
+                    "minInterval": 0.001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "degree",
+                    "type": "int",
+                    "default": 3,
+                    "min": 2,
+                    "max": 20,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "coef0",
+                    "type": "double",
+                    "default": 0,
+                    "min": -1e5,
+                    "max": 1e5,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "alpha",
+                    "type": "double",
+                    "default": 1.0,
+                    "min": 0.0,
+                    "max": 1.0,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "eigen_solver",
+                    "type": "cat",
+                    "values": [
+                        "dense",
+                        "arpack",
+                        "randomized"
+                    ],
+                    "default": "dense"
+                },
+                {
+                    "name": "tol",
+                    "type": "double",
+                    "default": 0.0,
+                    "min": 0.0,
+                    "max": 1,
+                    "minInterval": 0.001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "remove_zero_eig",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "False"
+                },
+                {
+                    "name": "copy_X",
+                    "type": "cat",
+                    "values": [
+                        "False"
+                    ],
+                    "default": "False"
+                },
+                {
+                    "name": "n_jobs",
+                    "type": "int",
+                    "default": -1,
+                    "min": -1,
+                    "max": -1,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "sampling",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "False"
+                },
+                {
+                    "name": "subset_size",
+                    "type": "double",
+                    "default": 0.5,
+                    "min": 0.0,
+                    "max": 1,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}

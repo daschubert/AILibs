@@ -1,0 +1,120 @@
+{
+    "repository": "pyod.models.rgraph.RGraph",
+    "components": [
+        {
+            "name": "pyod.models.rgraph.RGraph",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameters": [
+				{
+                    "name": "contamination",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "transition_steps",
+                    "type": "int",
+                    "default": 20,
+                    "min": 1,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "gamma_nz",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "True"
+                },
+                {
+                    "name": "tau",
+                    "type": "double",
+                    "default": 1.0,
+                    "min": 0.0,
+                    "max": 1.0,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "algorithm",
+                    "type": "cat",
+                    "values": [
+                        "lasso_lars",
+                        "lasso_cd"
+                    ],
+                    "default": "lasso_lars"
+                },
+                {
+                    "name": "fit_intercept_LR",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "False"
+                },
+                {
+                    "name": "maxiter_lasso",
+                    "type": "int",
+                    "default": 1000,
+                    "min": 1,
+                    "max": 10000,
+                    "minInterval": 10,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "n_nonzero",
+                    "type": "int",
+                    "default": 50,
+                    "min": 1,
+                    "max": 500,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "active_support",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "True"
+                },
+                {
+                    "name": "preprocessing",
+                    "type": "cat",
+                    "values": [
+                        "True",
+                        "False"
+                    ],
+                    "default": "True"
+                },
+                {
+                    "name": "verbose",
+                    "type": "int",
+                    "default": 0,
+                    "min": 0,
+                    "max": 0,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "blocksize_test_data",
+                    "type": "int",
+                    "default": 10,
+                    "min": 1,
+                    "max": 100,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}

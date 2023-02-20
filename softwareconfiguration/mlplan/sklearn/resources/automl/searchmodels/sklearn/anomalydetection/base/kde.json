@@ -1,0 +1,89 @@
+{
+	"repository": "pyod.models.kde.KDE",
+	"components": [
+		{
+			"name": "pyod.models.kde.KDE",
+			"providedInterface": [
+				"AbstractDetector",
+				"BasicDetector",
+				"BaseLearner"
+			],
+			"requiredInterface": [],
+			"parameters": [
+				{
+					"name": "contamination",
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 0.5,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "bandwidth",
+					"type": "double",
+					"default": 1.0,
+					"min": 0.0,
+					"max": 1.0,
+					"minInterval": 0.001,
+					"refineSplits": 2
+				},
+				{
+					"name": "algorithm",
+					"type": "cat",
+					"values": [
+						"ball_tree",
+						"kd_tree"
+					],
+					"default": "ball_tree"
+				},
+				{
+					"name": "leaf_size",
+					"type": "int",
+					"default": 30,
+					"min": 1,
+					"max": 100,
+					"minInterval": 1,
+					"refineSplits": 2
+				},
+				{
+					"name": "metric",
+					"type": "cat",
+					"values": [
+						"canberra",
+						"manhattan",
+						"l2",
+						"hamming",
+						"sokalmichener",
+						"braycurtis",
+						"infinity",
+						"p",
+						"euclidean",
+						"l1",
+						"matching",
+						"sokalsneath",
+						"dice",
+						"kulsinski",
+						"minkowski",
+						"rogerstanimoto",
+						"cityblock",
+						"russellrao",
+						"jaccard",
+						"chebyshev"
+					],
+					"default": "minkowski"
+				}
+			],
+			"dependencies": [
+				{
+					"pre": "algorithm in {ball_tree}",
+					"post": "metric in {euclidean, l2, minkowski, p, manhattan, cityblock, l1, chebyshev, infinity, hamming, canberra, braycurtis, matching, jaccard, dice, kulsinski, rogerstanimoto, russellrao, sokalmichener, sokalsneath}"
+				},
+				{
+					"pre": "algorithm in {kd_tree}",
+					"post": "metric in {euclidean, l2, minkowski, p, manhattan, cityblock, l1, chebyshev, infinity}"
+				}
+			]
+		}
+	]
+}

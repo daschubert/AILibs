@@ -1,0 +1,112 @@
+{
+    "repository": "pyod_wrapper.lunar.LUNARWrapper",
+    "components": [
+        {
+            "name": "pyod_wrapper.lunar.LUNARWrapper",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameters": [
+				{
+                    "name": "model_type",
+                    "type": "cat",
+                    "values": [
+                        "WEIGHT",
+                        "SCORE"
+                    ],
+                    "default": "WEIGHT"
+                },
+                {
+                    "name": "n_neighbours",
+                    "type": "int",
+                    "default": 5,
+                    "min": 1,
+                    "max": 50,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "negative_sampling",
+                    "type": "cat",
+                    "values": [
+                        "UNIFORM",
+                        "SUBSPACE",
+                        "MIXED"
+                    ],
+                    "default": "MIXED"
+                },
+                {
+                    "name": "val_size",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.01,
+                    "max": 0.9,
+                    "minInterval": 0.001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "scaler",
+                    "type": "cat",
+                    "values": [
+                        "Standard",
+                        "MinMax"
+                    ],
+                    "default": "MinMax"
+                },	
+            	{
+                    "name": "epsilon",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.0,
+                    "max": 1.0,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "proportion",
+                    "type": "double",
+                    "default": 1.0,
+                    "min": 0.0,
+                    "max": 5.0,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "n_epochs",
+                    "type": "int",
+                    "default": 200,
+                    "min": 1,
+                    "max": 1000,
+                    "minInterval": 10,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "lr",
+                    "type": "double",
+                    "default": 0.001,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.0001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "wd",
+                    "type": "double",
+                    "default": 0.001,
+                    "min": 0.0,
+                    "max": 1.0,
+                    "minInterval": 0.0001,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "verbose",
+                    "type": "int",
+                    "default": 0,
+                    "min": 0,
+                    "max": 0,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}

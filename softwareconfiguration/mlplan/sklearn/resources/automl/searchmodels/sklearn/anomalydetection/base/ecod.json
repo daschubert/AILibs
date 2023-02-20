@@ -1,0 +1,30 @@
+{
+    "repository": "pyod.models.ecod.ECOD",
+    "components": [
+        {
+            "name": "pyod.models.ecod.ECOD",
+            "providedInterface": [ "AbstractDetector", "BasicDetector", "BaseLearner" ],
+            "requiredInterface": [],
+            "parameters": [
+            	{
+                    "name": "contamination",
+                    "type": "double",
+                    "default": 0.1,
+                    "min": 0.0,
+                    "max": 0.5,
+                    "minInterval": 0.01,
+                    "refineSplits": 2
+                },
+                {
+                    "name": "n_jobs",
+                    "type": "int",
+                    "default": -1,
+                    "min": -1,
+                    "max": -1,
+                    "minInterval": 1,
+                    "refineSplits": 2
+                }
+            ]
+        }
+    ]
+}
