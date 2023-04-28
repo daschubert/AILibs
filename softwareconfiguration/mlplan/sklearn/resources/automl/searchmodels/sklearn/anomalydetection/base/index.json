@@ -33,7 +33,8 @@
 		"./so_gaal.json",
 		"./sod.json",
 		"./sos.json",
-		"./vae.json"
+		"./vae.json",
+		"./xgbod.json"
 	],
 	"components": []
 }
