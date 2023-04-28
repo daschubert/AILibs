@@ -55,13 +55,15 @@ public class AnomalyDetectorExecutionTest {
 					searchspaceLoader.deserializeParamMap(searchspaceConfig, searchSpaceVarMap));
 
 			List<IComponent> basicDetectors = components.stream()
-					.filter(c -> c.getProvidedInterfaces().contains("BasicDetector"))
-					.filter(c -> c.getName().equals(componentName)).collect(Collectors.toList());
+					.filter(c -> c.getProvidedInterfaces().contains("BasicDetector")).collect(Collectors.toList());
 
-			assertEquals(basicDetectors.size(), 1);
+			List<IComponent> basicDetector = basicDetectors.stream().filter(c -> c.getName().equals(componentName))
+					.collect(Collectors.toList());
 
-			sample = ComponentInstanceUtil.sampleDefaultComponentInstance("BasicDetector", basicDetectors,
-					new Random());
+			assertEquals(basicDetector.size(), 1);
+
+			sample = ComponentInstanceUtil.sampleDefaultComponentInstance("AbstractDetector", basicDetector.get(0),
+					basicDetectors, new Random());
 
 			wrappedComponentInstance = wrapComponentInstance(sample);
 			return wrappedComponentInstance;
@@ -96,7 +98,7 @@ public class AnomalyDetectorExecutionTest {
 			ScikitLearnWrapper<IPrediction, IPredictionBatch> wrappedComponentInstance)
 			throws DatasetDeserializationFailedException, LearnerExecutionInterruptedException,
 			LearnerExecutionFailedException {
-		
+
 		SupervisedLearnerExecutor executor = new SupervisedLearnerExecutor();
 
 		File trainFile = new File("testrsc/winequality_outliers_simple.arff");
@@ -119,190 +121,196 @@ public class AnomalyDetectorExecutionTest {
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.abod.ABOD");
 	}
-	
+
 	@Test
 	public void testALAD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod_wrapper.alad.ALADWrapper");
 	}
-	
+
 	@Test
 	public void testAnoGAN() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod_wrapper.anogan.AnoGANWrapper");
 	}
-	
+
 	@Test
-	public void testAutoEncoderTorch() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
-			LearnerExecutionFailedException {
+	public void testAutoEncoderTorch() throws LearnerExecutionInterruptedException,
+			DatasetDeserializationFailedException, LearnerExecutionFailedException {
 		testComponentInstance("pyod_wrapper.auto_encoder_torch.AutoEncoderTorchWrapper");
 	}
-	
+
 	@Test
 	public void testCBLOF() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.cblof.CBLOF");
 	}
-	
+
 	@Test
 	public void testCOF() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.cof.COF");
 	}
-	
+
 	@Test
 	public void testCOPOD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.copod.COPOD");
 	}
-	
+
 	@Test
 	public void testDeepSVDD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod_wrapper.deep_svdd.DeepSVDDWrapper");
 	}
-	
+
 	@Test
 	public void testECOD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.ecod.ECOD");
 	}
-	
+
 	@Test
 	public void testGMM() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.gmm.GMM");
 	}
-	
+
 	@Test
 	public void testHBOS() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.hbos.HBOS");
 	}
-	
+
 	@Test
 	public void testIForest() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.iforest.IForest");
 	}
-	
+
 	@Test
 	public void testINNE() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.inne.INNE");
 	}
-	
+
 	@Test
 	public void testKDE() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.kde.KDE");
 	}
-	
+
 	@Test
 	public void testKNN() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.knn.KNN");
 	}
-	
+
 	@Test
 	public void testKPCA() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.kpca.KPCA");
 	}
-	
+
 	@Test
 	public void testLMDD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.lmdd.LMDD");
 	}
-	
+
 	@Test
 	public void testLOCI() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.loci.LOCI");
 	}
-	
+
 	@Test
 	public void testLODA() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.loda.LODA");
 	}
-	
+
 	@Test
 	public void testLOF() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.lof.LOF");
 	}
-	
+
 	@Test
 	public void testLunar() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod_wrapper.lunar.LUNARWrapper");
 	}
-	
+
 	@Test
 	public void testMCD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.mcd.MCD");
 	}
-	
+
 	@Test
 	public void testMOGAAL() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.mo_gaal.MO_GAAL");
 	}
-	
+
 	@Test
 	public void testOCSVM() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.ocsvm.OCSVM");
 	}
-	
+
 	@Test
 	public void testPCA() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.pca.PCA");
 	}
-	
+
 	@Test
 	public void testRGraph() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.rgraph.RGraph");
 	}
-	
+
 	@Test
 	public void testROD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.rod.ROD");
 	}
-	
+
 	@Test
 	public void testSampling() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.sampling.Sampling");
 	}
-	
+
 	@Test
 	public void testSOGAAL() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.so_gaal.SO_GAAL");
 	}
-	
+
 	@Test
 	public void testSOD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.sod.SOD");
 	}
-	
+
 	@Test
 	public void testSOS() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.sos.SOS");
 	}
-	
+
 	@Test
 	public void testVAE() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod_wrapper.vae.VAEWrapper");
+	}
+
+	@Test
+	public void testXGBOD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.xgbod.XGBOD");
 	}
 }
