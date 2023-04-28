@@ -17,6 +17,7 @@ OUTPUT_FILE = None
 ArffStructure and parse implemented by Amin Faez.
 """
 
+
 def parse(arff_, is_path=True):
     """ Opens and reads the file located at path.
     May also be called with the content string.
@@ -30,7 +31,7 @@ def parse(arff_, is_path=True):
     else:
         arff_data = arff_  # here path is actually the content of an arff file.
         
-    ## automatically find out whether the file is a sparse file
+    # # automatically find out whether the file is a sparse file
     seenData = False
     for x in arff_data:
         if x.isspace():
@@ -40,11 +41,11 @@ def parse(arff_, is_path=True):
             continue
         if not seenData:
             continue
-        dense_mode =  not ("{" in x and "}" in x)
+        dense_mode = not ("{" in x and "}" in x)
         break
     
     try:
-        if is_path: # reload file, because we scanned over it already
+        if is_path:  # reload file, because we scanned over it already
             arff_data = open(arff_, 'r')
         if dense_mode:
             dfARFF = pd.DataFrame(scipy_arff.loadarff(arff_data)[0])
@@ -66,7 +67,6 @@ def parse(arff_, is_path=True):
                 class_attribute = a
         if class_attribute is None:
             class_attribute = dfARFF.columns[-1]
-        
         
         # replace nan values with 0
         dfARFF = dfARFF.fillna(0)
@@ -108,6 +108,7 @@ class ArffStructure:
         self.output_matrix = self.output_df.values
         self.class_attribute = class_attribute
 
+
 def get_filename(path_of_file):
     """
     Returns the filename of a file that is referenced with its path.
@@ -116,13 +117,14 @@ def get_filename(path_of_file):
     """
     return os.path.splitext(os.path.basename(path_of_file))[0]
 
+
 def parse_args():
     """
     Parses the arguments that are given to the script and overwrites sys.argv with this parsed representation that is
     accessable as a list.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--mode', choices=['train','test','traintest'], required=True, help="Selecting whether a train or a test is run.")
+    parser.add_argument('--mode', choices=['train', 'test', 'traintest'], required=True, help="Selecting whether a train or a test is run.")
     parser.add_argument('--arff', required=True, help="Path or ARFF to use for training/ testing.")
     parser.add_argument('--testarff', required=False, help="Path or ARFF to use for testing when running with traintest mode.")
     parser.add_argument('--output', required=True, help="In train mode set the file where the model shall be dumped; in test mode set the file where the prediction results shall be serialized to.")
@@ -131,6 +133,7 @@ def parse_args():
     parser.add_argument('--seed', required=True, help="Sets the seed.")
     sys.argv = vars(parser.parse_args())
 
+
 def load_arff_file(arff_path):
     """
     Loads an arff file from disk.
@@ -138,8 +141,9 @@ def load_arff_file(arff_path):
     """
     # Load the arff dataset and convert the data into array.
     df, class_attribute = parse(arff_path)
-    data =  ArffStructure(df, class_attribute)
+    data = ArffStructure(df, class_attribute)
     return data
+
     
 def load_arff_files(arff_path_train, arff_path_test):
     """
@@ -170,6 +174,7 @@ def load_arff_files(arff_path_train, arff_path_test):
     out2 = ArffStructure(dfBinarizedTest, class_attribute, assume_numeric=True)
     print("ready.")
     return out1, out2
+
 
 def get_feature_target_matrices(data):
     """
@@ -209,6 +214,7 @@ def serialize_model(classifier_instance):
     with open(OUTPUT_FILE, 'wb') as file:
         pickle.dump(classifier_instance, file)
 
+
 def serialize_prediction(prediction):
     """
     Serialize prediction results.
@@ -217,12 +223,12 @@ def serialize_prediction(prediction):
     # Make sure the predictions are in a list
     prediction = prediction.tolist()
     # Convert possible integers to floats (nescassary for Weka signature)
-    if isinstance(prediction[0],int):
+    if isinstance(prediction[0], int):
         prediction = [float(i) for i in prediction]
-    elif isinstance(prediction[0],list):
+    elif isinstance(prediction[0], list):
         for sublist in prediction:
             sublist = [float(i) for i in sublist]
-    if not isinstance(prediction[0],list):
+    if not isinstance(prediction[0], list):
         prediction = [prediction]
     prediction_json = json.dumps(prediction)
     # Safe prediction on disk.
@@ -242,13 +248,14 @@ def run_train_mode(data):
     if targets.shape[1] != 1:
         raise Exception("Can currently only work with single targets.")
     X = features
-    #We assume un/semi-supervised anomaly detection. Thus we don't need y
-    #y = targets[:,0].astype("str")
+
+    y = targets[:, 0].astype("int")
     # Create instance of classifier with given parameters.
     classifier_instance = {{classifier_construct}}
-    #classifier_instance.fit(X, y)
-    classifier_instance.fit(X)
+    classifier_instance.fit(X, y)
+    
     serialize_model(classifier_instance)
+
 
 def run_train_test_mode(data, testdata):
     """
@@ -261,22 +268,22 @@ def run_train_test_mode(data, testdata):
     if targets.shape[1] != 1:
         raise Exception("Can currently only work with single targets.")
     X = features
-    #We assume un/semi-supervised anomaly detection. Thus we don't need y
-    #y = targets[:,0].astype("str")
+
+    y = targets[:, 0].astype('int')
 
     print("Now training on data with ", len(X), "instances")
-    #if (len(X) != len(y)):
-    #	raise Exception("Input matrix and prediction vector have different sizes. Prediction vector has length " + str(len(y)))
+    if (len(X) != len(y)):
+    	raise Exception("Input matrix and prediction vector have different sizes. Prediction vector has length " + str(len(y)))
     	
     # Create instance of classifier with given parameters.
     classifier_instance = {{classifier_construct}}
-    #classifier_instance.fit(X, y)
-    classifier_instance.fit(X)
+    classifier_instance.fit(X, y)
     
     test_features = np.array(testdata.input_matrix)
     
     prediction = classifier_instance.predict(test_features)
     serialize_prediction(prediction)
+
 
 def run_test_mode(testdata):
     """
