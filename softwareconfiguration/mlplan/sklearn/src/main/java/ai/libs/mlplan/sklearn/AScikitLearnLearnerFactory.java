@@ -26,15 +26,19 @@ import ai.libs.mlplan.core.ILearnerFactory;
 import ai.libs.python.IPythonConfig;
 
 /**
- * The SKLearnClassifierFactory takes a ground component instance and parses it into a <code>ScikitLearnWrapper</code> as defined in the project jaicore-ml. This factory may be used in the context of HASCO, especially for ML-Plan.
+ * The SKLearnClassifierFactory takes a ground component instance and parses it
+ * into a <code>ScikitLearnWrapper</code> as defined in the project jaicore-ml.
+ * This factory may be used in the context of HASCO, especially for ML-Plan.
  *
  * @author wever
  */
-public abstract class AScikitLearnLearnerFactory implements ILearnerFactory<ScikitLearnWrapper<IPrediction, IPredictionBatch>>, ILoggingCustomizable {
+public abstract class AScikitLearnLearnerFactory
+		implements ILearnerFactory<ScikitLearnWrapper<IPrediction, IPredictionBatch>>, ILoggingCustomizable {
 
 	public static final String N_PREPROCESSOR = "preprocessor";
 
-	private static final CategoricalParameterDomain BOOL_DOMAIN = new CategoricalParameterDomain(Arrays.asList("True", "False"));
+	private static final CategoricalParameterDomain BOOL_DOMAIN = new CategoricalParameterDomain(
+			Arrays.asList("True", "False"));
 	private static final List<String> EXCEPTIONS = Arrays.asList("None", "np.inf", "f_regression");
 
 	private final EScikitLearnProblemType sklearnProblemType;
@@ -51,7 +55,8 @@ public abstract class AScikitLearnLearnerFactory implements ILearnerFactory<Scik
 	}
 
 	@Override
-	public ScikitLearnWrapper<IPrediction, IPredictionBatch> getComponentInstantiation(final IComponentInstance groundComponent) throws ComponentInstantiationFailedException {
+	public ScikitLearnWrapper<IPrediction, IPredictionBatch> getComponentInstantiation(
+			final IComponentInstance groundComponent) throws ComponentInstantiationFailedException {
 		this.logger.debug("Parse ground component instance {} to ScikitLearnWrapper object.", groundComponent);
 
 		StringBuilder constructInstruction = new StringBuilder();
@@ -64,7 +69,8 @@ public abstract class AScikitLearnLearnerFactory implements ILearnerFactory<Scik
 		this.logger.info("Created construction string: {}", constructionString);
 
 		try {
-			ScikitLearnWrapper<IPrediction, IPredictionBatch> wrapper = new ScikitLearnWrapper<>(constructionString, imports.toString(), false, this.sklearnProblemType);
+			ScikitLearnWrapper<IPrediction, IPredictionBatch> wrapper = new ScikitLearnWrapper<>(constructionString,
+					imports.toString(), false, this.sklearnProblemType);
 			if (this.pythonConfig != null) {
 				wrapper.setPythonConfig(this.pythonConfig);
 			}
@@ -72,19 +78,24 @@ public abstract class AScikitLearnLearnerFactory implements ILearnerFactory<Scik
 			wrapper.setTimeout(this.timeout);
 			return wrapper;
 		} catch (IOException e) {
-			this.logger.error("Could not create sklearn wrapper for construction {} and imports {}.", constructInstruction, imports);
+			this.logger.error("Could not create sklearn wrapper for construction {} and imports {}.",
+					constructInstruction, imports);
 			return null;
 		}
 	}
 
-	public abstract String getPipelineBuildString(final IComponentInstance groundComponent, final Set<String> importSet);
+	public abstract String getPipelineBuildString(final IComponentInstance groundComponent,
+			final Set<String> importSet);
 
-	public String extractSKLearnConstructInstruction(final IComponentInstance groundComponent, final Set<String> importSet) {
+	public String extractSKLearnConstructInstruction(final IComponentInstance groundComponent,
+			final Set<String> importSet) {
 		StringBuilder sb = new StringBuilder();
 		if (groundComponent.getComponent().getName().startsWith("mlplan.util.model.make_forward")) {
-			sb.append(this.extractSKLearnConstructInstruction(groundComponent.getSatisfactionOfRequiredInterface("source").iterator().next(), importSet));
+			sb.append(this.extractSKLearnConstructInstruction(
+					groundComponent.getSatisfactionOfRequiredInterface("source").iterator().next(), importSet));
 			sb.append(",");
-			sb.append(this.extractSKLearnConstructInstruction(groundComponent.getSatisfactionOfRequiredInterface("base").iterator().next(), importSet));
+			sb.append(this.extractSKLearnConstructInstruction(
+					groundComponent.getSatisfactionOfRequiredInterface("base").iterator().next(), importSet));
 			return sb.toString();
 		}
 
@@ -111,9 +122,11 @@ public abstract class AScikitLearnLearnerFactory implements ILearnerFactory<Scik
 		} else if (groundComponent.getComponent().getName().contains("make_union"))
 
 		{
-			sb.append(this.extractSKLearnConstructInstruction(groundComponent.getSatisfactionOfRequiredInterface("p1").iterator().next(), importSet));
+			sb.append(this.extractSKLearnConstructInstruction(
+					groundComponent.getSatisfactionOfRequiredInterface("p1").iterator().next(), importSet));
 			sb.append(",");
-			sb.append(this.extractSKLearnConstructInstruction(groundComponent.getSatisfactionOfRequiredInterface("p2").iterator().next(), importSet));
+			sb.append(this.extractSKLearnConstructInstruction(
+					groundComponent.getSatisfactionOfRequiredInterface("p2").iterator().next(), importSet));
 		} else {
 			boolean first = true;
 			for (Entry<String, String> parameterValue : groundComponent.getParameterValues().entrySet()) {
@@ -133,9 +146,11 @@ public abstract class AScikitLearnLearnerFactory implements ILearnerFactory<Scik
 						sb.append(Double.parseDouble(parameterValue.getValue()));
 					}
 				} else if (param.isCategorical()) {
-					if (BOOL_DOMAIN.subsumes(param.getDefaultDomain()) || EXCEPTIONS.contains(parameterValue.getValue())) {
+					if (BOOL_DOMAIN.subsumes(param.getDefaultDomain())
+							|| EXCEPTIONS.contains(parameterValue.getValue())) {
 						sb.append(parameterValue.getValue());
-					} else { // if the categorical parameter contains numeric values, try to parse it as int or as double, and use the value itself if neither works
+					} else { // if the categorical parameter contains numeric values, try to parse it as int
+								// or as double, and use the value itself if neither works
 						try {
 							sb.append(Integer.parseInt(parameterValue.getValue()));
 						} catch (NumberFormatException e) {
@@ -147,11 +162,13 @@ public abstract class AScikitLearnLearnerFactory implements ILearnerFactory<Scik
 						}
 					}
 				} else {
-					throw new UnsupportedOperationException("The given parameter type is unknown for parameter " + param);
+					throw new UnsupportedOperationException(
+							"The given parameter type is unknown for parameter " + param);
 				}
 			}
 
-			for (Entry<String, List<IComponentInstance>> satReqI : groundComponent.getSatisfactionOfRequiredInterfaces().entrySet()) {
+			for (Entry<String, List<IComponentInstance>> satReqI : groundComponent.getSatisfactionOfRequiredInterfaces()
+					.entrySet()) {
 				if (first) {
 					first = false;
 				} else {
@@ -159,7 +176,19 @@ public abstract class AScikitLearnLearnerFactory implements ILearnerFactory<Scik
 				}
 
 				sb.append(satReqI.getKey() + "=");
-				sb.append(this.extractSKLearnConstructInstruction(satReqI.getValue().iterator().next(), importSet));
+
+				if (satReqI.getValue().size() > 1) {
+					sb.append("[");
+					for(int i = 0; i < satReqI.getValue().size(); i++) {
+						sb.append(this.extractSKLearnConstructInstruction(satReqI.getValue().get(i), importSet));
+						if(i != satReqI.getValue().size()-1)
+							sb.append(",");
+					}
+					sb.append("]");
+
+				} else {
+					sb.append(this.extractSKLearnConstructInstruction(satReqI.getValue().iterator().next(), importSet));
+				}
 			}
 		}
 		sb.append(")");

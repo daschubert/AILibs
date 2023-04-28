@@ -25,9 +25,9 @@ import ai.libs.jaicore.components.api.IRequiredInterfaceDefinition;
 import ai.libs.jaicore.components.serialization.ComponentSerialization;
 
 /**
- * The ComponentInstanceUtil provides some utilities to deal with component instances.
- * For instance, it may be used to check whether a ComponentInstance conforms the dependencies
- * defined in the respective Component.
+ * The ComponentInstanceUtil provides some utilities to deal with component
+ * instances. For instance, it may be used to check whether a ComponentInstance
+ * conforms the dependencies defined in the respective Component.
  *
  * @author wever
  */
@@ -36,11 +36,16 @@ public class ComponentInstanceUtil {
 	private static final Logger logger = LoggerFactory.getLogger(ComponentInstanceUtil.class);
 
 	private ComponentInstanceUtil() {
-		/* Private constructor to prevent anyone to instantiate this Util class by accident. */
+		/*
+		 * Private constructor to prevent anyone to instantiate this Util class by
+		 * accident.
+		 */
 	}
 
 	/**
-	 * Checks whether a component instance adheres to the defined inter-parameter dependencies defined in the component.
+	 * Checks whether a component instance adheres to the defined inter-parameter
+	 * dependencies defined in the component.
+	 * 
 	 * @param ci The component instance to be verified.
 	 * @return Returns true iff all dependency conditions hold.
 	 */
@@ -54,7 +59,9 @@ public class ComponentInstanceUtil {
 	}
 
 	/**
-	 * Checks whether a component instance adheres to the defined inter-parameter dependencies defined in the component.
+	 * Checks whether a component instance adheres to the defined inter-parameter
+	 * dependencies defined in the component.
+	 * 
 	 * @param ci The component instance to be verified.
 	 * @throws Exception with explanation if it is not valid
 	 */
@@ -64,15 +71,21 @@ public class ComponentInstanceUtil {
 		for (IParameter param : ci.getComponent().getParameters()) {
 			if (param.getDefaultDomain() instanceof NumericParameterDomain) {
 				double parameterValue = Double.parseDouble(ci.getParameterValue(param));
-				refinedDomainMap.put(param, new NumericParameterDomain(((NumericParameterDomain) param.getDefaultDomain()).isInteger(), parameterValue, parameterValue));
+				refinedDomainMap.put(param,
+						new NumericParameterDomain(((NumericParameterDomain) param.getDefaultDomain()).isInteger(),
+								parameterValue, parameterValue));
 			} else if (param.getDefaultDomain() instanceof CategoricalParameterDomain) {
 				refinedDomainMap.put(param, new CategoricalParameterDomain(Arrays.asList(ci.getParameterValue(param))));
 			}
 		}
 
 		for (IParameterDependency dependency : ci.getComponent().getParameterDependencies()) {
-			if (CompositionProblemUtil.isDependencyPremiseSatisfied(dependency, refinedDomainMap) && !CompositionProblemUtil.isDependencyConditionSatisfied(dependency.getConclusion(), refinedDomainMap)) {
-				throw new IllegalStateException("The dependency " + dependency + " of component " + ci.getComponent().getName() + " in the following component instance is violated: " + new ComponentSerialization().serialize(ci));
+			if (CompositionProblemUtil.isDependencyPremiseSatisfied(dependency, refinedDomainMap)
+					&& !CompositionProblemUtil.isDependencyConditionSatisfied(dependency.getConclusion(),
+							refinedDomainMap)) {
+				throw new IllegalStateException("The dependency " + dependency + " of component "
+						+ ci.getComponent().getName() + " in the following component instance is violated: "
+						+ new ComponentSerialization().serialize(ci));
 			}
 		}
 	}
@@ -81,7 +94,12 @@ public class ComponentInstanceUtil {
 		StringBuilder sb = new StringBuilder();
 		sb.append(ci.getComponent().getName());
 		if (!ci.getSatisfactionOfRequiredInterfaces().isEmpty()) {
-			sb.append("(").append(ci.getSatisfactionOfRequiredInterfaces().values().stream().map(ciList -> ciList.stream().map(cil -> ((ComponentInstance)cil).toComponentNameString()).collect(Collectors.joining())).collect(Collectors.joining(", "))).append(")");
+			sb.append("(")
+					.append(ci.getSatisfactionOfRequiredInterfaces().values().stream()
+							.map(ciList -> ciList.stream().map(cil -> ((ComponentInstance) cil).toComponentNameString())
+									.collect(Collectors.joining()))
+							.collect(Collectors.joining(", ")))
+					.append(")");
 		}
 		return sb.toString();
 	}
@@ -89,7 +107,8 @@ public class ComponentInstanceUtil {
 	public static ComponentInstance getDefaultParametrization(final IComponentInstance ci) {
 		Map<String, List<IComponentInstance>> defaultRequiredInterfaces = new HashMap<>();
 		ci.getSatisfactionOfRequiredInterfaces().forEach((name, ciReqList) -> {
-			List<IComponentInstance> l = ciReqList.stream().map(ComponentInstanceUtil::getDefaultParametrization).collect(Collectors.toList());
+			List<IComponentInstance> l = ciReqList.stream().map(ComponentInstanceUtil::getDefaultParametrization)
+					.collect(Collectors.toList());
 			defaultRequiredInterfaces.put(name, l);
 		});
 		return new ComponentInstance(ci.getComponent(), new HashMap<>(), defaultRequiredInterfaces);
@@ -104,19 +123,23 @@ public class ComponentInstanceUtil {
 				boolean isCompatibleWithDefaultValue = false;
 				if (parameterValue.contains("[")) {
 					List<String> intervalAsList = SetUtil.unserializeList(instance.getParameterValue(p));
-					isCompatibleWithDefaultValue = defaultValue >= Double.parseDouble(intervalAsList.get(0)) && defaultValue <= Double.parseDouble(intervalAsList.get(1));
+					isCompatibleWithDefaultValue = defaultValue >= Double.parseDouble(intervalAsList.get(0))
+							&& defaultValue <= Double.parseDouble(intervalAsList.get(1));
 				} else {
 					isCompatibleWithDefaultValue = Math.abs(defaultValue - Double.parseDouble(parameterValue)) < 1E-8;
 				}
 				if (!isCompatibleWithDefaultValue) {
-					logger.info("{} has value {}, which does not subsume the default value {}", p.getName(), instance.getParameterValue(p), defaultValue);
+					logger.info("{} has value {}, which does not subsume the default value {}", p.getName(),
+							instance.getParameterValue(p), defaultValue);
 					return false;
 				} else {
-					logger.info("{} has value {}, which IS COMPATIBLE with the default value {}", p.getName(), instance.getParameterValue(p), defaultValue);
+					logger.info("{} has value {}, which IS COMPATIBLE with the default value {}", p.getName(),
+							instance.getParameterValue(p), defaultValue);
 				}
 			} else {
 				if (!instance.getParameterValue(p).equals(p.getDefaultValue().toString())) {
-					logger.info("{} has value {}, which is not the default {}", p.getName(), instance.getParameterValue(p), p.getDefaultValue());
+					logger.info("{} has value {}, which is not the default {}", p.getName(),
+							instance.getParameterValue(p), p.getDefaultValue());
 					return false;
 				}
 			}
@@ -134,16 +157,25 @@ public class ComponentInstanceUtil {
 	/**
 	 * Samples a random component instance with random parameters.
 	 *
-	 * @param requiredInterface The required interface the sampled component instance must conform.
-	 * @param components The components that can be chosen.
-	 * @param rand Random number generator for pseudo randomization.
+	 * @param requiredInterface The required interface the sampled component
+	 *                          instance must conform.
+	 * @param components        The components that can be chosen.
+	 * @param rand              Random number generator for pseudo randomization.
 	 * @return A randomly sampled component instance with random parameters.
 	 */
-	public static ComponentInstance sampleRandomComponentInstance(final String requiredInterface, final Collection<IComponent> components, final Random rand) {
-		List<IComponent> componentsList = new ArrayList<>(ComponentUtil.getComponentsProvidingInterface(components, requiredInterface));
-		ComponentInstance ci = ComponentUtil.getRandomParameterizationOfComponent(componentsList.get(rand.nextInt(componentsList.size())), rand);
+	public static ComponentInstance sampleRandomComponentInstance(final String requiredInterface,
+			final Collection<IComponent> components, final Random rand) {
+		List<IComponent> componentsList = new ArrayList<>(
+				ComponentUtil.getComponentsProvidingInterface(components, requiredInterface));
+		ComponentInstance ci = ComponentUtil
+				.getRandomParameterizationOfComponent(componentsList.get(rand.nextInt(componentsList.size())), rand);
 		for (IRequiredInterfaceDefinition i : ci.getComponent().getRequiredInterfaces()) {
-			ci.getSatisfactionOfRequiredInterfaces().put(i.getId(), Arrays.asList(sampleRandomComponentInstance(i.getName(), components, rand)));
+			int multiplicity = rand.nextInt(i.getMax() - i.getMin() + 1) + i.getMin();
+			List<IComponentInstance> argument = new ArrayList<>();
+			for (int j = 0; j < multiplicity; j++) {
+				argument.add(sampleRandomComponentInstance(i.getName(), components, rand));
+			}
+			ci.getSatisfactionOfRequiredInterfaces().put(i.getId(), argument);
 		}
 		return ci;
 	}
@@ -151,30 +183,64 @@ public class ComponentInstanceUtil {
 	/**
 	 * Samples a random component instance with default parameters.
 	 *
-	 * @param requiredInterface The required interface the sampled component instance must conform.
-	 * @param components The components that can be chosen.
-	 * @param rand Random number generator for pseudo randomization.
+	 * @param requiredInterface The required interface the sampled component
+	 *                          instance must conform.
+	 * @param components        The components that can be chosen.
+	 * @param rand              Random number generator for pseudo randomization.
 	 * @return A randomly sampled component instance with default parameters.
 	 */
-	public static ComponentInstance sampleDefaultComponentInstance(final String requiredInterface, final Collection<? extends IComponent> components, final Random rand) {
-		List<IComponent> componentsList = new ArrayList<>(ComponentUtil.getComponentsProvidingInterface(components, requiredInterface));
-		ComponentInstance ci = ComponentUtil.getDefaultParameterizationOfComponent(componentsList.get(rand.nextInt(componentsList.size())));
+	public static ComponentInstance sampleDefaultComponentInstance(final String requiredInterface,
+			final Collection<? extends IComponent> components, final Random rand) {
+		List<IComponent> componentsList = new ArrayList<>(
+				ComponentUtil.getComponentsProvidingInterface(components, requiredInterface));
+		ComponentInstance ci = ComponentUtil
+				.getDefaultParameterizationOfComponent(componentsList.get(rand.nextInt(componentsList.size())));
 		for (IRequiredInterfaceDefinition i : ci.getComponent().getRequiredInterfaces()) {
-			ci.getSatisfactionOfRequiredInterfaces().put(i.getId(), Arrays.asList(sampleDefaultComponentInstance(i.getName(), components, rand)));
+			int multiplicity = rand.nextInt(i.getMax() - i.getMin() + 1) + i.getMin();
+			List<IComponentInstance> argument = new ArrayList<>();
+			for (int j = 0; j < multiplicity; j++) {
+				argument.add(sampleDefaultComponentInstance(i.getName(), components, rand));
+			}
+			ci.getSatisfactionOfRequiredInterfaces().put(i.getId(), argument);
 		}
 		return ci;
 	}
 
-
+	/**
+	 * Samples a component instance with default parameters.
+	 *
+	 * @param requiredInterface The required interface the sampled component
+	 *                          instance must conform.
+	 * @param component         The component to be sampled.
+	 * @param components        The components that can be use to satisfy required
+	 *                          interfaces.
+	 * @param rand              Random number generator for pseudo randomization.
+	 * @return A randomly sampled component instance with default parameters.
+	 */
+	public static ComponentInstance sampleDefaultComponentInstance(final String requiredInterface,
+			final IComponent component, final Collection<? extends IComponent> components, final Random rand) {
+		ComponentInstance ci = ComponentUtil.getDefaultParameterizationOfComponent(component);
+		for (IRequiredInterfaceDefinition i : ci.getComponent().getRequiredInterfaces()) {
+			int multiplicity = rand.nextInt(i.getMax() - i.getMin() + 1) + i.getMin();
+			List<IComponentInstance> argument = new ArrayList<>();
+			for (int j = 0; j < multiplicity; j++) {
+				argument.add(sampleDefaultComponentInstance(i.getName(), components, rand));
+			}
+			ci.getSatisfactionOfRequiredInterfaces().put(i.getId(), argument);
+		}
+		return ci;
+	}
 
 	/**
-	 * This method checks, whether a given list of paths of refinements conforms the constraints for parameter refinements.
+	 * This method checks, whether a given list of paths of refinements conforms the
+	 * constraints for parameter refinements.
 	 *
-	 * @param paths
-	 *            A list of paths of refinements to be checked.
-	 * @return Returns true if everything is alright and false if there is an issue with the given paths.
+	 * @param paths A list of paths of refinements to be checked.
+	 * @return Returns true if everything is alright and false if there is an issue
+	 *         with the given paths.
 	 */
-	public static boolean matchesPathRestrictions(final ComponentInstance ci, final Collection<List<Pair<String, String>>> paths) {
+	public static boolean matchesPathRestrictions(final ComponentInstance ci,
+			final Collection<List<Pair<String, String>>> paths) {
 		for (List<Pair<String, String>> path : paths) {
 			if (!matchesPathRestriction(ci, path)) {
 				return false;
@@ -184,18 +250,22 @@ public class ComponentInstanceUtil {
 	}
 
 	/**
-	 * This method checks, whether a path of refinements conforms the constraints for parameter refinements.
+	 * This method checks, whether a path of refinements conforms the constraints
+	 * for parameter refinements.
 	 *
-	 * @param path
-	 *            A path of refinements to be checked.
-	 * @return Returns true if everything is alright and false if there is an issue with the given path.
+	 * @param path A path of refinements to be checked.
+	 * @return Returns true if everything is alright and false if there is an issue
+	 *         with the given path.
 	 */
 	public static boolean matchesPathRestriction(final ComponentInstance ci, final List<Pair<String, String>> path) {
 		if (path.isEmpty()) {
 			return true;
 		}
 
-		/* if the first entry is on null, we interpret it as a filter on this component itself */
+		/*
+		 * if the first entry is on null, we interpret it as a filter on this component
+		 * itself
+		 */
 		int i = 0;
 		if (path.get(0).getX() == null) {
 			String requiredComponent = path.get(0).getY();
@@ -210,12 +280,16 @@ public class ComponentInstanceUtil {
 		int n = path.size();
 		for (; i < n; i++) {
 			Pair<String, String> selection = path.get(i);
-			if (current.getComponent().getRequiredInterfaces().stream().noneMatch(ri -> ri.getId().equals(selection.getX()))) {
-				throw new IllegalArgumentException("Invalid path restriction " + path + ": " + selection.getX() + " is not a required interface of " + current.getComponent().getName());
+			if (current.getComponent().getRequiredInterfaces().stream()
+					.noneMatch(ri -> ri.getId().equals(selection.getX()))) {
+				throw new IllegalArgumentException("Invalid path restriction " + path + ": " + selection.getX()
+						+ " is not a required interface of " + current.getComponent().getName());
 			}
-			Collection<IComponentInstance> instancesChosenForRequiredInterface = current.getSatisfactionOfRequiredInterfaces().get(selection.getX());
+			Collection<IComponentInstance> instancesChosenForRequiredInterface = current
+					.getSatisfactionOfRequiredInterfaces().get(selection.getX());
 			for (IComponentInstance instanceChosenForRequiredInterface : instancesChosenForRequiredInterface) {
-				if (!selection.getY().equals("*") && !instanceChosenForRequiredInterface.getComponent().getName().equals(selection.getY())) {
+				if (!selection.getY().equals("*")
+						&& !instanceChosenForRequiredInterface.getComponent().getName().equals(selection.getY())) {
 					return false;
 				}
 				current = instanceChosenForRequiredInterface;
@@ -225,7 +299,8 @@ public class ComponentInstanceUtil {
 	}
 
 	/**
-	 * @return A collection of all components contained (recursively) in this <code>ComponentInstance</code>.
+	 * @return A collection of all components contained (recursively) in this
+	 *         <code>ComponentInstance</code>.
 	 */
 	public static Collection<IComponent> getContainedComponents(final IComponentInstance ci) {
 		Collection<IComponent> components = new HashSet<>();
@@ -242,7 +317,13 @@ public class ComponentInstanceUtil {
 		StringBuilder sb = new StringBuilder();
 		sb.append(instance.getComponent().getName());
 		if (!instance.getSatisfactionOfRequiredInterfaces().isEmpty()) {
-			sb.append("{").append(instance.getSatisfactionOfRequiredInterfaces().values().stream().map(ciList -> ciList.stream().map(ComponentInstanceUtil::getComponentInstanceAsComponentNames).collect(Collectors.joining())).collect(Collectors.joining(","))).append("}");
+			sb.append("{")
+					.append(instance.getSatisfactionOfRequiredInterfaces().values().stream()
+							.map(ciList -> ciList.stream()
+									.map(ComponentInstanceUtil::getComponentInstanceAsComponentNames)
+									.collect(Collectors.joining()))
+							.collect(Collectors.joining(",")))
+					.append("}");
 		}
 		return sb.toString();
 	}
@@ -264,7 +345,8 @@ public class ComponentInstanceUtil {
 		}
 
 		/* check required interfaces */
-		for (Entry<String, List<IComponentInstance>> provisionsOfSub : sub.getSatisfactionOfRequiredInterfaces().entrySet()) {
+		for (Entry<String, List<IComponentInstance>> provisionsOfSub : sub.getSatisfactionOfRequiredInterfaces()
+				.entrySet()) {
 			int n = provisionsOfSub.getValue().size();
 			List<IComponentInstance> provisionsOfSup = sup.getSatisfactionOfRequiredInterface(provisionsOfSub.getKey());
 			if (provisionsOfSup.size() < n) {
