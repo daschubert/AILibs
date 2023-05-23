@@ -159,6 +159,31 @@ public class ComponentInstanceUtil {
 	 *
 	 * @param requiredInterface The required interface the sampled component
 	 *                          instance must conform.
+	 * @param component         The component to be sampled.
+	 * @param components        The components that can be chosen.
+	 * @param rand              Random number generator for pseudo randomization.
+	 * @return A randomly sampled component instance with random parameters.
+	 */
+	public static ComponentInstance sampleRandomComponentInstance(final String requiredInterface,
+			final IComponent component, final Collection<IComponent> components, final Random rand) {
+		ComponentInstance ci = ComponentUtil
+				.getRandomParameterizationOfComponent(component, rand);
+		for (IRequiredInterfaceDefinition i : ci.getComponent().getRequiredInterfaces()) {
+			int multiplicity = rand.nextInt(i.getMax() - i.getMin() + 1) + i.getMin();
+			List<IComponentInstance> argument = new ArrayList<>();
+			for (int j = 0; j < multiplicity; j++) {
+				argument.add(sampleRandomComponentInstance(i.getName(), components, rand));
+			}
+			ci.getSatisfactionOfRequiredInterfaces().put(i.getId(), argument);
+		}
+		return ci;
+	}
+	
+	/**
+	 * Samples a random component instance with random parameters.
+	 *
+	 * @param requiredInterface The required interface the sampled component
+	 *                          instance must conform.
 	 * @param components        The components that can be chosen.
 	 * @param rand              Random number generator for pseudo randomization.
 	 * @return A randomly sampled component instance with random parameters.
