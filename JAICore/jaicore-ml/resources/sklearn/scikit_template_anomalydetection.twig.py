@@ -9,6 +9,7 @@ import warnings
 from scipy.io import arff as scipy_arff
 from os.path import join as path_join
 import pandas as pd
+from fontTools.misc.classifyTools import Classifier
 {{imports}}
 
 OUTPUT_FILE = None
@@ -252,7 +253,10 @@ def run_train_mode(data):
     y = targets[:, 0].astype("int")
     # Create instance of classifier with given parameters.
     classifier_instance = {{classifier_construct}}
-    classifier_instance.fit(X, y)
+    if type(classifier_instance).__name__ == "XGBOD":
+        classifier_instance.fit(X, y)
+    else:
+        classifier_instance.fit(X)
     
     serialize_model(classifier_instance)
 
@@ -277,7 +281,11 @@ def run_train_test_mode(data, testdata):
     	
     # Create instance of classifier with given parameters.
     classifier_instance = {{classifier_construct}}
-    classifier_instance.fit(X, y)
+    
+    if type(classifier_instance).__name__ == "XGBOD":
+        classifier_instance.fit(X, y)
+    else:
+        classifier_instance.fit(X)
     
     test_features = np.array(testdata.input_matrix)
     
