@@ -1,0 +1,109 @@
+{
+	"repository": "pyod.models.suod.SUOD",
+	"components": [
+		{
+			"name": "pyod.models.suod.SUOD",
+			"providedInterface": [
+				"AbstractDetector",
+				"BasicDetector",
+				"BaseLearner"
+			],
+			"requiredInterface": [
+				{
+					"id": "base_estimators",
+					"name": "BasicDetector",
+					"min": 2,
+					"max": 5
+				},
+				{
+					"id": "rp_clf_list",
+					"name": "BasicDetector",
+					"min": 0,
+					"max": 37
+				},
+				{
+					"id": "approx_clf_list",
+					"name": "BasicDetector",
+					"min": 0,
+					"max": 37
+				}
+			],
+			"parameters": [
+				{
+					"name": "contamination",
+					"type": "double",
+					"default": 0.1,
+					"min": 0.0,
+					"max": 0.5,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "combination",
+					"type": "cat",
+					"values": [
+						"average",
+						"maximization"
+					],
+					"default": "average"
+				},
+				{
+					"name": "n_jobs",
+					"type": "int",
+					"default": -1,
+					"min": -1,
+					"max": -1,
+					"minInterval": 1,
+					"refineSplits": 2
+				},
+				{
+					"name": "rp_flag_global",
+					"type": "cat",
+					"values": [
+						"True",
+						"False"
+					],
+					"default": "True"
+				},
+				{
+					"name": "target_dim_frac",
+					"type": "double",
+					"default": 0.5,
+					"min": 0.0,
+					"max": 1.0,
+					"minInterval": 0.01,
+					"refineSplits": 2
+				},
+				{
+					"name": "jl_method",
+					"type": "cat",
+					"values": [
+						"basic",
+						"discrete",
+						"circulant",
+						"toeplitz"
+					],
+					"default": "basic"
+				},
+				{
+					"name": "bps_flag",
+					"type": "cat",
+					"values": [
+						"True",
+						"False"
+					],
+					"default": "True"
+				},
+				{
+					"name": "approx_flag_global",
+					"type": "cat",
+					"values": [
+						"True",
+						"False"
+					],
+					"default": "True"
+				}
+		]
+	}
+]
+}

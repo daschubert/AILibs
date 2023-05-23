@@ -66,6 +66,7 @@ public class AnomalyDetectorExecutionTest {
 					basicDetectors, new Random());
 
 			wrappedComponentInstance = wrapComponentInstance(sample);
+			System.out.println(wrappedComponentInstance.toString());
 			return wrappedComponentInstance;
 
 		} catch (IOException e) {
@@ -211,6 +212,12 @@ public class AnomalyDetectorExecutionTest {
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.kpca.KPCA");
 	}
+	
+	@Test
+	public void testQMCD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.qmcd.QMCD");
+	}
 
 	@Test
 	public void testLMDD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
@@ -234,6 +241,12 @@ public class AnomalyDetectorExecutionTest {
 	public void testLOF() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.lof.LOF");
+	}
+
+	@Test
+	public void testLSCP() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+			LearnerExecutionFailedException {
+		testComponentInstance("pyod.models.lscp.LSCP");
 	}
 
 	@Test
@@ -301,6 +314,14 @@ public class AnomalyDetectorExecutionTest {
 			LearnerExecutionFailedException {
 		testComponentInstance("pyod.models.sos.SOS");
 	}
+
+	// SUOD is not working with the numpy version we are currently using
+	// https://github.com/yzhao062/SUOD/issues/8
+//	@Test
+//	public void testSUOD() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
+//			LearnerExecutionFailedException {
+//		testComponentInstance("pyod.models.suod.SUOD");
+//	}
 
 	@Test
 	public void testVAE() throws LearnerExecutionInterruptedException, DatasetDeserializationFailedException,
